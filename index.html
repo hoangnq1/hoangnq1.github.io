@@ -1,473 +1,291 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Hoàng | Tarot Reader & Writer</title>
-  <!-- Google Fonts & Font Awesome -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: #fbf9f5;
-      font-family: 'Inter', sans-serif;
-      color: #2c2b28;
-      line-height: 1.5;
-      scroll-behavior: smooth;
-    }
-
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-
-    /* typography */
-    h1, h2, h3, .serif {
-      font-family: 'Playfair Display', serif;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-    }
-
-    h1 {
-      font-size: 3.5rem;
-      font-weight: 600;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-
-    h2 {
-      font-size: 2.2rem;
-      margin-bottom: 1.5rem;
-      border-left: 4px solid #b77d5e;
-      padding-left: 1rem;
-    }
-
-    .section {
-      padding: 80px 0;
-      border-bottom: 1px solid #e8e2d8;
-    }
-
-    .section:last-child {
-      border-bottom: none;
-    }
-
-    /* header / hero */
-    .hero {
-      min-height: 90vh;
-      display: flex;
-      align-items: center;
-      background: linear-gradient(135deg, #fcf9f5 0%, #f2ede5 100%);
-    }
-
-    .hero-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 48px;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .hero-content {
-      flex: 1.2;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      background: #dcc7b4;
-      color: #3a2c24;
-      padding: 6px 16px;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      margin-bottom: 24px;
-    }
-
-    .hero-tagline {
-      font-size: 1.3rem;
-      color: #6b4e3a;
-      margin: 1rem 0 1.8rem 0;
-      font-weight: 400;
-      max-width: 90%;
-    }
-
-    .btn-group {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 28px;
-      border-radius: 40px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.25s ease;
-      font-size: 0.95rem;
-    }
-
-    .btn-primary {
-      background: #2c2b28;
-      color: white;
-      border: 1px solid #2c2b28;
-    }
-
-    .btn-primary:hover {
-      background: #4f3e32;
-      border-color: #4f3e32;
-      transform: translateY(-3px);
-      box-shadow: 0 12px 20px -12px rgba(0,0,0,0.2);
-    }
-
-    .btn-outline {
-      border: 1px solid #b77d5e;
-      color: #b77d5e;
-      background: transparent;
-    }
-
-    .btn-outline:hover {
-      background: #b77d5e10;
-      border-color: #9b6448;
-      color: #9b6448;
-      transform: translateY(-2px);
-    }
-
-    .hero-image {
-      flex: 0.8;
-      text-align: center;
-      background: #e6dfd6;
-      border-radius: 50% 45% 55% 40%;
-      padding: 24px;
-      box-shadow: 0 25px 35px -12px rgba(0,0,0,0.1);
-    }
-
-    .hero-image i {
-      font-size: 10rem;
-      color: #9e7b62;
-      opacity: 0.8;
-    }
-
-    /* cards & decks */
-    .decks-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 28px;
-      margin-top: 30px;
-    }
-
-    .deck-card {
-      background: white;
-      padding: 24px 16px;
-      border-radius: 32px;
-      text-align: center;
-      transition: all 0.25s;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.02);
-      border: 1px solid #e9e1d8;
-    }
-
-    .deck-card:hover {
-      transform: translateY(-6px);
-      border-color: #dcc7b4;
-      box-shadow: 0 18px 30px -12px rgba(0,0,0,0.1);
-    }
-
-    .deck-icon {
-      font-size: 2.8rem;
-      margin-bottom: 16px;
-      color: #b77d5e;
-    }
-
-    .deck-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-    }
-
-    .deck-card p {
-      font-size: 0.9rem;
-      color: #6b5a4e;
-    }
-
-    /* writer section */
-    .writer-quote {
-      background: #f3ede7;
-      padding: 48px 40px;
-      border-radius: 48px;
-      margin: 40px 0 20px;
-      font-style: normal;
-    }
-
-    .writer-quote i {
-      font-size: 2rem;
-      color: #c7aa91;
-      margin-right: 10px;
-    }
-
-    .writer-quote p {
-      font-size: 1.25rem;
-      line-height: 1.5;
-      font-family: 'Playfair Display', serif;
-      color: #2d2a26;
-    }
-
-    .story-text {
-      font-size: 1.08rem;
-      margin-bottom: 1.2rem;
-      color: #3a352f;
-    }
-
-    .exp-badge {
-      background: #e2d6cd;
-      display: inline-block;
-      padding: 8px 20px;
-      border-radius: 60px;
-      font-weight: 600;
-      margin: 20px 0 10px;
-    }
-
-    /* services mini */
-    .services-flex {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 28px;
-      margin-top: 32px;
-    }
-
-    .service-item {
-      flex: 1;
-      min-width: 200px;
-      background: white;
-      border-radius: 28px;
-      padding: 28px 20px;
-      border: 1px solid #e9dfd7;
-      transition: all 0.2s;
-    }
-
-    .service-item i {
-      font-size: 2rem;
-      color: #a77b5e;
-      margin-bottom: 20px;
-    }
-
-    /* contact & footer */
-    .contact-links {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 32px 0 24px;
-    }
-
-    .contact-link {
-      background: #2c2b28;
-      color: white;
-      padding: 14px 28px;
-      border-radius: 60px;
-      text-decoration: none;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      transition: 0.2s;
-    }
-
-    .contact-link:hover {
-      background: #4f3e32;
-      transform: scale(1.02);
-    }
-
-    footer {
-      text-align: center;
-      padding: 32px;
-      color: #8f7e6f;
-      font-size: 0.85rem;
-    }
-
-    /* responsive */
-    @media (max-width: 850px) {
-      .hero-grid {
-        flex-direction: column;
-        text-align: center;
-      }
-      .hero-tagline {
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .btn-group {
-        justify-content: center;
-      }
-      h1 {
-        font-size: 2.6rem;
-      }
-      h2 {
-        font-size: 1.9rem;
-      }
-      .section {
-        padding: 60px 0;
-      }
-    }
-
-    @media (max-width: 550px) {
-      .container {
-        padding: 0 24px;
-      }
-      .deck-card {
-        padding: 16px 12px;
-      }
-    }
-
-    .highlight {
-      font-weight: 700;
-      color: #a56b48;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Hoàng | Tarot reader & Writer</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Flatpickr for date picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fefcf8;
+            color: #1e1b18;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        /* header */
+        .header {
+            text-align: center;
+            padding: 48px 0 24px;
+            border-bottom: 1px solid #e5dfd7;
+        }
+        .name {
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+        .tag {
+            color: #8b6b4f;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+        /* sections */
+        .section {
+            padding: 48px 0;
+            border-bottom: 1px solid #eee8e2;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-title i {
+            color: #9b7b62;
+            font-size: 1.6rem;
+        }
+        /* decks list */
+        .deck-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+            margin: 20px 0 16px;
+        }
+        .deck-tag {
+            background: #f0ebe4;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        /* booking form */
+        .booking-card {
+            background: white;
+            border: 1px solid #e2d9d0;
+            border-radius: 28px;
+            padding: 28px;
+            margin-top: 16px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 8px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd2c6;
+            border-radius: 20px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: #fff;
+            transition: 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #9b7b62;
+            box-shadow: 0 0 0 2px rgba(155,123,98,0.2);
+        }
+        .btn {
+            background: #2c2a27;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn:hover {
+            background: #534434;
+            transform: translateY(-2px);
+        }
+        .success-msg {
+            background: #e0f0e5;
+            color: #2d6a4f;
+            padding: 12px;
+            border-radius: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .support-link {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .support-btn {
+            background: #e9e1d8;
+            color: #2c2a27;
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        footer {
+            text-align: center;
+            padding: 32px;
+            font-size: 0.85rem;
+            color: #8c7a68;
+        }
+        hr {
+            margin: 16px 0;
+            border: none;
+            border-top: 1px solid #e5dfd7;
+        }
+        .info-text {
+            margin-bottom: 12px;
+            color: #3e3a35;
+        }
+        @media (max-width: 650px) {
+            .container { padding: 0 20px; }
+            .name { font-size: 2rem; }
+        }
+    </style>
 </head>
 <body>
 
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-content">
-        <span class="hero-badge"><i class="fas fa-moon"></i> Tarot & Văn chương</span>
-        <h1>Hoàng<br>Tarot Reader & Writer</h1>
-        <p class="hero-tagline">Kể chuyện bằng lá bài, chạm vào tâm thức bằng con chữ — 2 năm hành trình cùng những bộ bài huyền bí và trang viết đầy cảm xúc.</p>
-        <div class="btn-group">
-          <a href="#about" class="btn btn-primary"><i class="fas fa-hand-sparkles"></i> Khám phá hành trình</a>
-          <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Kết nối với tôi</a>
+<div class="container">
+    <div class="header">
+        <h1 class="name">Hoàng</h1>
+        <div class="tag">Tarot reader · Writer · 2 năm thực hành</div>
+    </div>
+
+    <!-- GIỚI THIỆU ngắn gọn, thực tế -->
+    <div class="section">
+        <div class="section-title">
+            <i class="fas fa-user-circle"></i> 
+            <span>Vài dòng về tôi</span>
         </div>
-      </div>
-      <div class="hero-image">
-        <i class="fas fa-crystal-ball"></i>
-        <!-- symbolic illustration -->
-        <div style="margin-top: 12px; font-size: 0.85rem; color: #8e735e;"><i class="fas fa-feather-alt"></i> giữa trực giác & ngôn từ</div>
-      </div>
-    </div>
-  </section>
-
-  <div class="container" id="about">
-    <!-- giới thiệu dài, chi tiết -->
-    <div class="section">
-      <h2>✨ Về tôi — Hoàng</h2>
-      <div class="story-text">
-        Xin chào, tôi là <strong class="highlight">Hoàng</strong>, một Tarot reader và người viết với hơn <strong class="highlight">2 năm kinh nghiệm</strong> thực hành chuyên sâu. Hành trình của tôi bắt đầu từ niềm đam mê vô tận với các biểu tượng, huyền thoại và sự kết nối giữa vô thức với thực tại. Từ những ngày đầu cầm trên tay bộ bài Waite-Smith cổ điển, tôi dần khám phá ra rằng mỗi lá bài không chỉ là một bức tranh mà còn là một câu chuyện đang chờ được lắng nghe.
-      </div>
-      <div class="story-text">
-        Trải qua 2 năm đồng hành cùng hàng trăm trải bài, tôi đã đọc và giải mã bằng nhiều hệ thống bài khác nhau: <strong>Lenormand</strong> với lối đi thẳng vào logic cuộc sống, <strong>Ma Sói (Siberian / Nordic Lenormand variants)</strong> đầy bản năng và nguyên thủy, <strong>Oracle</strong> như cầu nối triết lý sâu thẳm, <strong>Waite-Smith</strong> huyền thoại nơi khởi nguồn biểu tượng Tarot, <strong>Bài Tây (Playing Cards)</strong> mang linh hồn bình dân nhưng ẩn dụ kỳ diệu, và <strong>Abysuss</strong> – một bộ bài độc bản với năng lượng u tối, khơi gợi chiều sâu tâm linh.
-      </div>
-      <div class="story-text">
-        Song song với việc lật bài, tôi là một người viết (writer). Tôi viết truyện ngắn, tản văn về chiêm tinh, tâm lý và những lát cắt đời thường dưới lăng kính biểu tượng. Tôi tin rằng mỗi phiên đọc bài cũng là một “tác phẩm” được viết nên từ sự đồng sáng tạo giữa người hỏi và các lá bài. Với tôi, Tarot không phải bói toán đen trắng, mà là tấm gương soi chiếu những ngóc ngách bên trong.
-      </div>
-      <div class="exp-badge"><i class="fas fa-calendar-alt"></i> 2 năm chuyên sâu + Hơn 400 trải bài & bài viết</div>
+        <p class="info-text">Chào bạn, tôi là Hoàng. Tôi đọc Tarot và viết lách như một cách kết nối với mọi người. Tôi có 2 năm kinh nghiệm với nhiều bộ bài khác nhau, không cao siêu, chỉ đơn giản là lắng nghe và chia sẻ những điều mà những lá bài gợi mở.</p>
+        <p class="info-text">Bên cạnh Tarot, tôi viết về đời sống, tâm lý và những câu chuyện nhỏ. Nếu bạn cần một góc nhìn qua trực giác hoặc chỉ muốn trò chuyện, tôi sẵn lòng.</p>
     </div>
 
-    <!-- Các bộ bài thuần thục -->
+    <!-- Các bộ bài -->
     <div class="section">
-      <h2>🃏 Những bộ bài tôi đọc thành thạo</h2>
-      <div class="decks-grid">
-        <div class="deck-card"><div class="deck-icon"><i class="fas fa-tree"></i></div><h3>Lenormand</h3><p>Trực diện, rõ ràng, kết nối các sự kiện đời thường</p></div>
-        <div class="deck-card"><div class="deck-icon"><i class="fas fa-paw"></i></div><h3>Ma Sói</h3><p>Bản năng, hoang dã, khai mở tiềm thức sâu</p></div>
-        <div class="deck-card"><div class="deck-icon"><i class="fas fa-gem"></i></div><h3>Oracle</h3><p>Thông điệp cảm hứng, tầng lớp triết lý</p></div>
-        <div class="deck-card"><div class="deck-icon"><i class="fas fa-sun"></i></div><h3>Waite-Smith</h3><p>Kinh điển toàn diện, giàu biểu tượng huyền bí</p></div>
-        <div class="deck-card"><div class="deck-icon"><i class="fas fa-heart"></i></div><h3>Bài Tây</h3><p>52 lá ẩn chứa dự báo & tương quan đời sống</p></div>
-        <div class="deck-card"><div class="deck-icon"><i class="fas fa-skull"></i></div><h3>Abysuss</h3><p>Chiều sâu bóng tối — chữa lành qua vực thẳm</p></div>
-      </div>
-      <div style="margin-top: 32px; background: #f8f2eb; border-radius: 28px; padding: 24px;">
-        <p style="font-style: italic; margin-bottom: 6px;"><i class="fas fa-quote-left" style="color:#b77d5e; margin-right: 10px;"></i>Mỗi bộ bài mang một ngôn ngữ riêng, tôi lắng nghe và phiên dịch bằng tất cả sự tinh tế.</p>
-        <p style="font-size:0.9rem;">— Hoàng, Tarot reader & kể chuyện bằng biểu tượng.</p>
-      </div>
-    </div>
-
-    <!-- Writer & triết lý dài hơn -->
-    <div class="section">
-      <h2>📖 Hành trình viết — sứ mệnh song hành</h2>
-      <div class="story-text">
-        Không chỉ dừng lại ở những buổi trải bài, tôi luôn giữ thói quen viết nhật ký Tarot và chia sẻ những bài luận về từng lá bài, các ẩn dụ trong văn học và đời sống. Là một writer, tôi đã xuất bản hơn 50 bài viết chuyên sâu trên blog cá nhân và các nền tảng văn học trực tuyến. Những chủ đề tôi yêu thích: “Biểu tượng Ngôi sao trong thời khắc khó khăn”, “Chất thơ của bộ bài Ma Sói”, “Cách Abysuss giúp tôi đối diện bóng tối”, và đặc biệt là series “Tarot & Kể chuyện”.
-      </div>
-      <div class="writer-quote">
-        <i class="fas fa-feather-alt"></i>
-        <p>“Những lá bài chỉ là giấy, nhưng câu chuyện bạn đọc ra từ chúng mới là phép màu thực sự. Và với cây bút, tôi viết lại những phép màu ấy để chúng sống mãi trong lòng người.”</p>
-        <div style="margin-top: 16px; font-family: monospace;">— Hoàng, writer & tarotist —</div>
-      </div>
-      <div class="story-text">
-        Sự giao thoa giữa Tarot và viết lách giúp tôi mang đến những phiên trải nghiệm bài vừa trực giác, vừa giàu cảm xúc tự sự. Trong mỗi buổi đọc bài, tôi thường lồng ghép những liên tưởng văn chương, giúp người hỏi không chỉ hiểu thông điệp mà còn cảm nhận được chiều sâu của câu chuyện mà vũ trụ đang thì thầm.
-      </div>
-    </div>
-
-    <!-- Dịch vụ / Phương thức -->
-    <div class="section">
-      <h2>🌙 Tôi có thể đồng hành cùng bạn qua</h2>
-      <div class="services-flex">
-        <div class="service-item"><i class="fas fa-chalkboard-user"></i><h3>Trải bài 1-1</h3><p>Online hoặc Hà Nội. Chuyên sâu về tình duyên, công việc, phát triển bản thân bằng các hệ bài Lenormand, Waite-Smith, Oracle.</p></div>
-        <div class="service-item"><i class="fas fa-book-open"></i><h3>Tarot & Viết chữa lành</h3><p>Kết hợp journaling và lá bài: bạn nhận được bản ghi chép câu chuyện cá nhân như một món quà tinh thần.</p></div>
-        <div class="service-item"><i class="fas fa-crown"></i><h3>Chuyên sâu Abysuss & Ma Sói</h3><p>Dành cho ai muốn khai phá bóng tối, thấu hiểu tổn thương và chuyển hóa năng lượng.</p></div>
-      </div>
-    </div>
-
-    <!-- Điểm nhấn kinh nghiệm -->
-    <div class="section">
-      <h2>🔮 Kinh nghiệm & chứng nhận</h2>
-      <div style="display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between;">
-        <div style="flex:1; min-width: 200px;">
-          <ul style="list-style-type: none;">
-            <li style="margin-bottom: 14px;"><i class="fas fa-check-circle" style="color:#b77d5e; width: 26px;"></i> 2 năm đọc bài chuyên nghiệp, hơn 400 luận giải</li>
-            <li style="margin-bottom: 14px;"><i class="fas fa-check-circle" style="color:#b77d5e;"></i> Thành thạo 6 hệ thống bài huyền thoại</li>
-            <li style="margin-bottom: 14px;"><i class="fas fa-check-circle" style="color:#b77d5e;"></i> Người sáng lập “Tarot & Literature” – nhóm thảo luận về biểu tượng</li>
-          </ul>
+        <div class="section-title">
+            <i class="fas fa-cards"></i>
+            <span>Bộ bài tôi đọc</span>
         </div>
-        <div style="flex:1; min-width: 200px;">
-          <ul style="list-style-type: none;">
-            <li style="margin-bottom: 14px;"><i class="fas fa-check-circle" style="color:#b77d5e;"></i> Cộng tác viên viết bài cho tạp chí Tinh Hoa & Mystic Journal</li>
-            <li style="margin-bottom: 14px;"><i class="fas fa-check-circle" style="color:#b77d5e;"></i> Hướng dẫn workshop “Kể chuyện bằng Tarot” tại Đường sách TP.HCM</li>
-            <li style="margin-bottom: 14px;"><i class="fas fa-check-circle" style="color:#b77d5e;"></i> Nghiên cứu độc lập về biểu tượng Abysuss & phương Tây huyền học</li>
-          </ul>
+        <div class="deck-list">
+            <span class="deck-tag">Lenormand</span>
+            <span class="deck-tag">Ma Sói</span>
+            <span class="deck-tag">Oracle</span>
+            <span class="deck-tag">Waite-Smith</span>
+            <span class="deck-tag">Bài Tây</span>
+            <span class="deck-tag">Abysuss</span>
         </div>
-      </div>
+        <p class="info-text" style="margin-top: 10px;">Mỗi bộ bài có một ngôn ngữ riêng, tôi thích sự đa dạng để phù hợp với từng câu chuyện của bạn.</p>
     </div>
 
-    <!-- Lời nhắn & contact -->
-    <div class="section" id="contact">
-      <h2><i class="fas fa-star-of-life"></i> Kết nối với Hoàng</h2>
-      <div class="story-text" style="text-align: center; max-width: 700px; margin-left: auto; margin-right: auto;">
-        Bạn có một câu hỏi cần lời khuyên từ Tarot? Hay muốn đọc những bài viết đầy cảm hứng về các lá bài và đời sống? Hãy liên hệ với tôi qua những kênh dưới đây. Rất mong được đồng hành cùng bạn trên hành trình thấu hiểu bản thân.
-      </div>
-      <div class="contact-links">
-        <a href="#" class="contact-link"><i class="fab fa-instagram"></i> Instagram / @hoang.tarotwriter</a>
-        <a href="#" class="contact-link"><i class="fab fa-facebook"></i> Facebook: Hoàng Tarot & Writer</a>
-        <a href="#" class="contact-link"><i class="fas fa-envelope"></i> hoang.tarotwriter@email.com</a>
-      </div>
-      <div style="text-align: center; margin-top: 24px;">
-        <p><i class="fas fa-moon"></i> Đặt lịch đọc bài trực tuyến hoặc nhận tư vấn qua tin nhắn.</p>
-        <p style="font-size: 0.85rem; margin-top: 12px;">✨ Mỗi buổi trải bài là một câu chuyện riêng, được viết bằng trái tim và trực giác. ✨</p>
-      </div>
+    <!-- ĐẶT LỊCH HẸN (tính năng chính) -->
+    <div class="section">
+        <div class="section-title">
+            <i class="fas fa-calendar-check"></i>
+            <span>Đặt lịch hẹn</span>
+        </div>
+        <div class="booking-card">
+            <p style="margin-bottom: 20px;"><i class="fas fa-clock"></i> Chọn ngày giờ và để lại lời nhắn, tôi sẽ xác nhận với bạn trong 24h.</p>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Tên của bạn *</label>
+                    <input type="text" id="fullname" required placeholder="Ví dụ: Minh Anh">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email *</label>
+                    <input type="email" id="email" required placeholder="ban@email.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-calendar-day"></i> Ngày & Giờ dự kiến *</label>
+                    <input type="text" id="datetimePicker" placeholder="Chọn ngày giờ" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-comment-dots"></i> Bạn muốn hỏi về điều gì? (gợi ý)</label>
+                    <textarea rows="3" id="message" placeholder="Ví dụ: công việc, tình cảm, định hướng..."></textarea>
+                </div>
+                <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Gửi yêu cầu hẹn</button>
+            </form>
+            <div id="bookingStatus"></div>
+        </div>
     </div>
-  </div>
 
-  <footer>
-    <p>© 2025 Hoàng — Tarot Reader & Writer. 2 năm kết nối giữa những lá bài và câu chữ.</p>
-    <p style="margin-top: 8px;"><i class="fas fa-tarot"></i> Lenormand · Ma Sói · Oracle · Waite-Smith · Bài Tây · Abysuss</p>
-  </footer>
+    <!-- Liên kết đến Support -->
+    <div class="support-link">
+        <a href="support.html" class="support-btn" target="_blank"><i class="fas fa-bug"></i> Báo cáo hỗ trợ / Góp ý cải thiện trang</a>
+    </div>
+    <hr>
+    <footer>
+        <i class="fas fa-moon"></i> Hoàng - Tarot & Writing | 2 năm với Lenormand, Ma Sói, Oracle, Waite, Bài Tây, Abysuss
+    </footer>
+</div>
 
-  <!-- Smooth scroll cho các anchor link -->
-  <script>
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href === "#" || href === "") return;
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
+<script>
+    // Flatpickr cho datetime picker (ngày giờ)
+    flatpickr("#datetimePicker", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        minDate: "today",
+        time_24hr: true,
+        locale: "vi",
+        placeholder: "YYYY-MM-DD HH:MM"
     });
-  </script>
+
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const fullname = document.getElementById('fullname').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const datetime = document.getElementById('datetimePicker').value;
+        const message = document.getElementById('message').value;
+
+        if (!fullname || !email || !datetime) {
+            document.getElementById('bookingStatus').innerHTML = '<div class="success-msg" style="background:#ffe6e5; color:#b13e3e;">❌ Vui lòng điền đầy đủ tên, email và thời gian.</div>';
+            return;
+        }
+
+        // Lưu vào localStorage (mô phỏng lưu đặt lịch)
+        const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+        const newAppt = {
+            id: Date.now(),
+            fullname: fullname,
+            email: email,
+            datetime: datetime,
+            message: message,
+            createdAt: new Date().toISOString()
+        };
+        appointments.push(newAppt);
+        localStorage.setItem('appointments', JSON.stringify(appointments));
+
+        // hiển thị thành công
+        document.getElementById('bookingStatus').innerHTML = `<div class="success-msg">✅ Đã ghi nhận lịch hẹn của bạn, ${fullname}! Tôi sẽ phản hồi qua email ${email} sớm nhất. Cảm ơn bạn.</div>`;
+        document.getElementById('bookingForm').reset();
+        document.getElementById('datetimePicker').value = '';
+    });
+</script>
 </body>
 </html>
