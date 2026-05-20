@@ -3,153 +3,455 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Hoàng | Tarot Reader & Writer - Hành trình huyền bí & văn chương</title>
-  <!-- Google Fonts & Font Awesome -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <title>Hoàng | Tarot Reader & Writer — Hành trình giữa các lá bài và con chữ</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      transition: background 0.3s ease, color 0.2s ease, border-color 0.2s;
     }
 
     body {
-      background: #fbf9f5;
+      background-color: #fefcf8;
       font-family: 'Inter', sans-serif;
-      color: #2c2b28;
-      line-height: 1.5;
+      color: #2a2622;
+      line-height: 1.6;
       scroll-behavior: smooth;
     }
 
-    /* Dark Mode Styles */
-    body.dark {
-      background: #1a1a1c;
-      color: #e8e2da;
+    /* Typography */
+    h1, h2, h3, .serif {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      letter-spacing: -0.01em;
     }
 
-    body.dark .deck-card,
-    body.dark .service-item,
-    body.dark .writer-quote,
-    body.dark .exp-badge,
-    body.dark .contact-link,
-    body.dark .faq-item,
-    body.dark .testimonial-card,
-    body.dark .energy-card,
-    body.dark .daily-card-modal .modal-content {
-      background: #2a2a2e;
-      border-color: #3e3e44;
-      color: #e0dbd3;
+    h1 {
+      font-size: 4rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+      color: #2c241e;
     }
 
-    body.dark .hero {
-      background: linear-gradient(135deg, #1f1f23 0%, #2a282b 100%);
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      font-weight: 500;
+      letter-spacing: -0.3px;
+      color: #3a2e26;
+      position: relative;
+      display: inline-block;
+    }
+    h2:after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 0;
+      width: 56px;
+      height: 3px;
+      background: #b88b6b;
+      border-radius: 4px;
     }
 
-    body.dark .btn-primary {
-      background: #c9aa8b;
-      border-color: #c9aa8b;
-      color: #1a1a1c;
+    .section {
+      padding: 90px 0;
+      border-bottom: 1px solid #eee8e0;
     }
-
-    body.dark .btn-outline {
-      border-color: #c9aa8b;
-      color: #c9aa8b;
-    }
-
-    body.dark .section {
-      border-bottom-color: #33323a;
+    .section:last-child {
+      border-bottom: none;
     }
 
     .container {
-      max-width: 1280px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 32px;
+      padding: 0 40px;
     }
 
-    h1, h2, h3, .serif {
-      font-family: 'Playfair Display', serif;
+    /* Buttons chuyên nghiệp */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      cursor: pointer;
+      border: none;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-primary {
+      background: #2c241e;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .btn-primary:hover {
+      background: #b88b6b;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px -8px rgba(184, 139, 107, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid #b88b6b;
+      color: #b88b6b;
+    }
+    .btn-outline:hover {
+      background: #b88b6b;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -6px rgba(184, 139, 107, 0.3);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(120deg, #fefaf5 0%, #f8f2ea 100%);
+    }
+    .hero-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 60px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hero-content {
+      flex: 1.2;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(184, 139, 107, 0.12);
+      color: #b88b6b;
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 28px;
+    }
+    .hero-tagline {
+      font-size: 1.2rem;
+      color: #6a5a4e;
+      margin: 1.2rem 0 2rem 0;
+      max-width: 85%;
+      line-height: 1.6;
+    }
+    .hero-image {
+      flex: 0.9;
+      text-align: center;
+      background: #ede5db;
+      border-radius: 40% 60% 35% 65% / 70% 40% 60% 30%;
+      padding: 40px 30px;
+      box-shadow: 0 30px 40px -20px rgba(0,0,0,0.15);
+    }
+    .hero-image i {
+      font-size: 6rem;
+      color: #b88b6b;
+      opacity: 0.9;
+    }
+
+    /* Deck Cards đẹp hơn */
+    .decks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .deck-card {
+      background: white;
+      padding: 32px 20px;
+      border-radius: 28px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid #f0e8e0;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+    }
+    .deck-card:hover {
+      transform: translateY(-8px);
+      border-color: #dccbbc;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.12);
+    }
+    .deck-icon {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #b88b6b;
+    }
+    .deck-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    /* Daily Draw Section */
+    .daily-card {
+      background: linear-gradient(135deg, #fff9f3, #ffffff);
+      border-radius: 36px;
+      padding: 48px 40px;
+      text-align: center;
+      box-shadow: 0 20px 35px -15px rgba(0,0,0,0.05);
+      border: 1px solid #efe4da;
+    }
+    .daily-card-btn {
+      background: #2c241e;
+      color: white;
+      border: none;
+      padding: 16px 40px;
+      border-radius: 60px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-top: 20px;
+    }
+    .daily-card-btn:hover {
+      background: #b88b6b;
+      transform: scale(1.02);
+      box-shadow: 0 12px 22px -8px #b88b6b80;
+    }
+    .daily-result {
+      margin-top: 32px;
+      background: #f9f4ee;
+      border-radius: 28px;
+      padding: 28px;
+      display: none;
+      font-size: 1rem;
+      border-left: 5px solid #b88b6b;
+    }
+
+    /* Testimonial Slider */
+    .testimonial-slider {
+      position: relative;
+      max-width: 850px;
+      margin: 50px auto 0;
+      overflow: hidden;
+      border-radius: 48px;
+    }
+    .testimonial-track {
+      display: flex;
+      transition: transform 0.5s ease-out;
+    }
+    .testimonial-card {
+      min-width: 100%;
+      padding: 48px 40px;
+      background: white;
+      border-radius: 40px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+      border: 1px solid #efe2d6;
+    }
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      border: 1px solid #e0d4c8;
+      width: 44px;
+      height: 44px;
+      border-radius: 60px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .slider-btn:hover {
+      background: #b88b6b;
+      color: white;
+      border-color: #b88b6b;
+    }
+    .prev { left: -20px; }
+    .next { right: -20px; }
+
+    /* FAQ Accordion */
+    .faq-item {
+      background: white;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      border: 1px solid #eee5dc;
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    .faq-question {
+      padding: 22px 28px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.05rem;
+    }
+    .faq-answer {
+      max-height: 0;
+      padding: 0 28px;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      color: #6a5a4e;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 180px;
+      padding: 0 28px 24px 28px;
+    }
+
+    /* Countdown & Energy */
+    .widget-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 40px 0;
+    }
+    .widget-card {
+      flex: 1;
+      background: white;
+      border-radius: 32px;
+      padding: 32px 28px;
+      border: 1px solid #efe4da;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .countdown {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .countdown span {
+      background: #2c241e;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 18px;
+      font-weight: 700;
+      font-size: 1.3rem;
+      min-width: 70px;
+    }
+    progress {
+      width: 100%;
+      height: 10px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    progress::-webkit-progress-bar { background-color: #ede0d4; border-radius: 10px; }
+    progress::-webkit-progress-value { background-color: #b88b6b; border-radius: 10px; }
+
+    /* Contact */
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+    .contact-link {
+      background: #2c241e;
+      color: white;
+      padding: 14px 32px;
+      border-radius: 60px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.25s;
+    }
+    .contact-link:hover {
+      background: #b88b6b;
+      transform: translateY(-3px);
+    }
+
+    /* Top bar icons */
+    .top-bar {
+      position: sticky;
+      top: 20px;
+      z-index: 100;
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+      max-width: 1200px;
+      margin: 0 auto 0 auto;
+      padding: 0 40px;
+    }
+    .icon-btn {
+      background: white;
+      border: 1px solid #e6dbd0;
+      border-radius: 60px;
+      width: 48px;
+      height: 48px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+    .icon-btn:hover {
+      background: #b88b6b;
+      color: white;
+      border-color: #b88b6b;
+    }
+
+    /* Music floating */
+    .music-control {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: #2c241e;
+      color: white;
+      border-radius: 60px;
+      padding: 12px 24px;
+      display: flex;
+      gap: 12px;
+      z-index: 99;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      cursor: pointer;
+      backdrop-filter: blur(4px);
       font-weight: 500;
     }
 
-    h1 { font-size: 3.5rem; font-weight: 600; line-height: 1.2; margin-bottom: 1rem; }
-    h2 { font-size: 2.2rem; margin-bottom: 1.5rem; border-left: 4px solid #b77d5e; padding-left: 1rem; }
-    .section { padding: 80px 0; border-bottom: 1px solid #e8e2d8; }
-    .section:last-child { border-bottom: none; }
-
-    /* header */
-    .hero { min-height: 90vh; display: flex; align-items: center; background: linear-gradient(135deg, #fcf9f5 0%, #f2ede5 100%); }
-    .hero-grid { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; justify-content: space-between; }
-    .hero-content { flex: 1.2; }
-    .hero-badge { display: inline-block; background: #dcc7b4; color: #3a2c24; padding: 6px 16px; border-radius: 40px; font-size: 0.8rem; font-weight: 600; margin-bottom: 24px; }
-    .hero-tagline { font-size: 1.3rem; color: #6b4e3a; margin: 1rem 0 1.8rem; max-width: 90%; }
-    .btn-group { display: flex; gap: 16px; flex-wrap: wrap; }
-    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 28px; border-radius: 40px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; font-family: inherit; }
-    .btn-primary { background: #2c2b28; color: white; border: 1px solid #2c2b28; }
-    .btn-primary:hover { background: #4f3e32; transform: translateY(-3px); box-shadow: 0 12px 20px -12px rgba(0,0,0,0.2); }
-    .btn-outline { border: 1px solid #b77d5e; color: #b77d5e; background: transparent; }
-    .btn-outline:hover { background: #b77d5e10; transform: translateY(-2px); }
-
-    /* decks & cards */
-    .decks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 28px; margin-top: 30px; }
-    .deck-card { background: white; padding: 24px 16px; border-radius: 32px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.02); border: 1px solid #e9e1d8; cursor: pointer; transition: all 0.2s; }
-    .deck-card:hover { transform: translateY(-8px); border-color: #b77d5e; }
-    .deck-icon { font-size: 2.8rem; margin-bottom: 16px; color: #b77d5e; }
-
-    /* widgets */
-    .widget-row { display: flex; flex-wrap: wrap; gap: 30px; margin: 40px 0; }
-    .widget-card { flex: 1; background: #fefaf5; border-radius: 32px; padding: 28px 24px; border: 1px solid #e6ded5; text-align: center; }
-    body.dark .widget-card { background: #26262b; }
-
-    /* daily draw */
-    .daily-card-btn { background: #b77d5e; color: white; border: none; padding: 14px 28px; border-radius: 60px; font-weight: bold; margin-top: 16px; cursor: pointer; }
-    .daily-result { margin-top: 20px; font-style: italic; background: #e9e0d6; border-radius: 28px; padding: 20px; }
-    body.dark .daily-result { background: #333238; }
-
-    /* slider testimonial */
-    .testimonial-slider { position: relative; max-width: 800px; margin: 40px auto; overflow: hidden; border-radius: 40px; }
-    .testimonial-track { display: flex; transition: transform 0.5s ease; }
-    .testimonial-card { min-width: 100%; padding: 32px; background: white; border-radius: 32px; text-align: center; box-shadow: 0 12px 25px rgba(0,0,0,0.05); }
-    .testimonial-card i.fa-quote-left { font-size: 2rem; color: #c7aa91; margin-bottom: 16px; display: inline-block; }
-    .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: #b77d5e; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; z-index: 2; }
-    .prev { left: 10px; } .next { right: 10px; }
-
-    /* faq accordion */
-    .faq-item { background: white; border-radius: 24px; margin-bottom: 16px; border: 1px solid #ede5dc; overflow: hidden; }
-    .faq-question { padding: 20px 24px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-    .faq-answer { max-height: 0; padding: 0 24px; overflow: hidden; transition: max-height 0.3s ease; color: #5a534a; }
-    .faq-item.active .faq-answer { max-height: 200px; padding: 0 24px 20px 24px; }
-
-    /* energy meter + dark mode toggle */
-    .top-bar { display: flex; justify-content: flex-end; gap: 16px; padding: 20px 32px 0; position: sticky; top: 0; z-index: 100; background: inherit; backdrop-filter: blur(8px); }
-    .icon-btn { background: #e5dbd1; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 1.2rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: #2c2b28; }
-    body.dark .icon-btn { background: #3e3c45; color: #f0e6dc; }
-
-    /* countdown */
-    .countdown { display: flex; gap: 15px; justify-content: center; margin: 20px 0; }
-    .countdown span { background: #2c2b28; color: white; padding: 10px 18px; border-radius: 20px; font-weight: bold; font-size: 1.4rem; min-width: 70px; }
-    body.dark .countdown span { background: #c9aa8b; color: #1a1a1c; }
-
-    /* music player */
-    .music-control { position: fixed; bottom: 24px; right: 24px; background: #2c2b28; color: white; border-radius: 60px; padding: 12px 20px; display: flex; gap: 12px; z-index: 99; box-shadow: 0 8px 18px rgba(0,0,0,0.2); cursor: pointer; align-items: center; }
-    body.dark .music-control { background: #b77d5e; color: #1f1f23; }
-
-    @media (max-width: 750px) { h1 { font-size: 2.3rem; } .hero-grid { flex-direction: column; text-align: center; } .countdown span { font-size: 1rem; min-width: 55px; } }
+    @media (max-width: 850px) {
+      h1 { font-size: 2.6rem; }
+      .hero-grid { flex-direction: column; text-align: center; }
+      .hero-tagline { max-width: 100%; }
+      .container { padding: 0 24px; }
+      .slider-btn { width: 36px; height: 36px; }
+      .prev { left: -10px; }
+      .next { right: -10px; }
+      .countdown span { font-size: 0.9rem; min-width: 55px; }
+    }
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #9b8a78;
+      border-top: 1px solid #ede4da;
+      font-size: 0.85rem;
+    }
+    .story-text {
+      font-size: 1.05rem;
+      margin-bottom: 1.2rem;
+      color: #4a413a;
+    }
+    .highlight {
+      color: #b88b6b;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
 <div class="top-bar">
   <button class="icon-btn" id="darkModeToggle"><i class="fas fa-moon"></i></button>
-  <button class="icon-btn" id="energyMeterBtn"><i class="fas fa-bolt"></i> Năng lượng</button>
+  <button class="icon-btn" id="energyMeterBtn"><i class="fas fa-bolt"></i></button>
 </div>
 
-<!-- Music Widget -->
 <div class="music-control" id="musicToggle">
-  <i class="fas fa-music"></i> <span id="musicText">Nhạc nền</span>
+  <i class="fas fa-feather-alt"></i> <span id="musicText">Âm nhạc nền</span>
 </div>
 <audio id="bgMusic" loop preload="none">
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
 </audio>
 
 <section class="hero">
@@ -157,63 +459,70 @@
     <div class="hero-content">
       <span class="hero-badge"><i class="fas fa-moon"></i> Tarot & Văn chương</span>
       <h1>Hoàng<br>Tarot Reader & Writer</h1>
-      <p class="hero-tagline">Kể chuyện bằng lá bài, chạm vào tâm thức bằng con chữ — 2 năm hành trình cùng 6 bộ bài huyền bí.</p>
-      <div class="btn-group">
+      <p class="hero-tagline">Kể chuyện bằng lá bài, chạm vào tâm thức bằng con chữ — 2 năm hành trình cùng 6 bộ bài huyền bí và hàng trăm trải nghiệm chữa lành.</p>
+      <div class="btn-group" style="display: flex; gap: 18px; flex-wrap: wrap;">
         <a href="#dailyDraw" class="btn btn-primary"><i class="fas fa-hand-sparkles"></i> Bốc bài hôm nay</a>
-        <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Kết nối</a>
+        <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Kết nối với tôi</a>
       </div>
     </div>
-    <div class="hero-image" style="text-align: center;"><i class="fas fa-crystal-ball" style="font-size: 7rem; color:#9e7b62;"></i><div><i class="fas fa-feather-alt"></i> trực giác & ngôn từ</div></div>
+    <div class="hero-image">
+      <i class="fas fa-crystal-ball"></i>
+      <div style="margin-top: 18px; font-family: serif; font-style: italic;">giữa trực giác & ngôn từ</div>
+    </div>
   </div>
 </section>
 
 <div class="container">
-  <!-- GIỚI THIỆU DÀI CHI TIẾT -->
+  <!-- Giới thiệu dài chi tiết -->
   <div class="section" id="about">
-    <h2>✨ Về tôi — Hoàng</h2>
-    <p class="story-text" style="margin-bottom: 1rem;"><strong class="highlight">Hoàng</strong> – tarot reader kiêm writer với hơn <strong>2 năm kinh nghiệm</strong> chuyên sâu. Tôi thành thạo <strong>Lenormand, Ma Sói, Oracle, Waite-Smith, Bài Tây, Abysuss</strong>. Mỗi bộ bài là một ngôn ngữ riêng, tôi kết nối trực giác và tri thức để mang đến những trải nghiệm chữa lành, thấu hiểu.</p>
-    <p class="story-text">Song song với Tarot, tôi viết truyện ngắn, tản văn về chiêm tinh, huyền học và tâm lý. Tôi đã có hơn 60 bài viết chuyên sâu, đồng thời dẫn dắt workshop "Kể chuyện bằng Tarot". Với tôi, mỗi phiên đọc bài cũng là một câu chuyện được viết nên từ sự đồng cảm.</p>
-    <div class="exp-badge" style="background:#e2d6cd; display:inline-block; padding:8px 20px; border-radius:60px;"><i class="fas fa-calendar-alt"></i> 2 năm chuyên sâu + 500+ trải bài & bài viết</div>
+    <h2>Về tôi — Hoàng</h2>
+    <div class="story-text">
+      Xin chào, tôi là <span class="highlight">Hoàng</span>, một Tarot reader và writer với hơn <strong>2 năm kinh nghiệm</strong> chuyên sâu. Hành trình của tôi bắt đầu từ sự tò mò với các biểu tượng, và nhanh chóng trở thành một lời gọi tâm linh. Tôi thành thạo <strong>Lenormand, Ma Sói, Oracle, Waite-Smith, Bài Tây, Abysuss</strong> — mỗi bộ bài là một phương ngữ riêng để kết nối với tiềm thức và dòng chảy cuộc đời.
+    </div>
+    <div class="story-text">
+      Song song với Tarot, tôi viết truyện ngắn, tiểu luận về huyền học, chiêm tinh và hành trình nội tâm. Tôi đã xuất bản hơn 70 bài viết chuyên sâu, dẫn dắt workshop "Kể chuyện bằng Tarot" tại TP.HCM và Hà Nội. Với tôi, mỗi phiên đọc bài cũng là một câu chuyện được viết nên từ sự đồng cảm và trực giác. Tôi tin rằng những lá bài không đoán định số phận, mà phản chiếu những tầng sâu thẳm nhất bên trong bạn.
+    </div>
+    <div style="margin-top: 30px; display: inline-block; background: #f3ede7; padding: 10px 28px; border-radius: 80px;"><i class="fas fa-calendar-alt"></i> 2 năm chuyên sâu · 500+ trải bài & bài viết</div>
   </div>
 
-  <!-- CÁC BỘ BÀI -->
+  <!-- Bộ bài -->
   <div class="section">
     <h2>🃏 Bộ bài thành thạo</h2>
     <div class="decks-grid">
-      <div class="deck-card"><div class="deck-icon"><i class="fas fa-tree"></i></div><h3>Lenormand</h3><p>Logic đời thường, dự báo sự kiện</p></div>
-      <div class="deck-card"><div class="deck-icon"><i class="fas fa-paw"></i></div><h3>Ma Sói</h3><p>Bản năng, hoang dã, khai mở tiềm thức</p></div>
-      <div class="deck-card"><div class="deck-icon"><i class="fas fa-gem"></i></div><h3>Oracle</h3><p>Thông điệp cảm hứng & triết lý</p></div>
-      <div class="deck-card"><div class="deck-icon"><i class="fas fa-sun"></i></div><h3>Waite-Smith</h3><p>Kinh điển, biểu tượng huyền bí</p></div>
-      <div class="deck-card"><div class="deck-icon"><i class="fas fa-heart"></i></div><h3>Bài Tây</h3><p>52 lá dự báo tương quan sống</p></div>
+      <div class="deck-card"><div class="deck-icon"><i class="fas fa-tree"></i></div><h3>Lenormand</h3><p>Logic, dự báo sự kiện rõ ràng</p></div>
+      <div class="deck-card"><div class="deck-icon"><i class="fas fa-paw"></i></div><h3>Ma Sói</h3><p>Bản năng, khai mở tiềm thức</p></div>
+      <div class="deck-card"><div class="deck-icon"><i class="fas fa-gem"></i></div><h3>Oracle</h3><p>Cảm hứng & thông điệp triết lý</p></div>
+      <div class="deck-card"><div class="deck-icon"><i class="fas fa-sun"></i></div><h3>Waite-Smith</h3><p>Biểu tượng huyền bí kinh điển</p></div>
+      <div class="deck-card"><div class="deck-icon"><i class="fas fa-heart"></i></div><h3>Bài Tây</h3><p>Ẩn dụ đời thường & tương quan</p></div>
       <div class="deck-card"><div class="deck-icon"><i class="fas fa-skull"></i></div><h3>Abysuss</h3><p>Chiều sâu bóng tối & chữa lành</p></div>
     </div>
   </div>
 
-  <!-- DAILY DRAW - Bốc bài ngẫu nhiên -->
+  <!-- Daily Draw -->
   <div class="section" id="dailyDraw">
     <h2>🔮 Bốc bài Tarot hôm nay</h2>
-    <div class="widget-card" style="text-align:center;">
-      <i class="fas fa-hand-sparkles" style="font-size: 2.5rem; color:#b77d5e;"></i>
-      <p style="margin: 16px 0;">Nhấn để nhận thông điệp từ vũ trụ qua bộ bài Waite-Smith & Oracle</p>
+    <div class="daily-card">
+      <i class="fas fa-hand-sparkles" style="font-size: 2.8rem; color:#b88b6b;"></i>
+      <p style="margin: 16px 0; font-size: 1.05rem;">Nhấn để nhận thông điệp từ vũ trụ (Waite-Smith & Oracle)</p>
       <button class="daily-card-btn" id="drawCardBtn">✨ Bốc bài ngẫu nhiên ✨</button>
-      <div id="dailyResult" class="daily-result" style="margin-top: 24px; display: none;"></div>
+      <div id="dailyResult" class="daily-result"></div>
     </div>
   </div>
 
-  <!-- ĐỒNG HỒ NĂNG LƯỢNG + COUNTDOWN EVENT -->
+  <!-- Widget: Năng lượng + Countdown -->
   <div class="section">
-    <h2>⚡ Năng lượng & Sự kiện đặc biệt</h2>
+    <h2>⚡ Năng lượng & Sự kiện</h2>
     <div class="widget-row">
-      <div class="widget-card" id="energyWidget">
-        <i class="fas fa-charging-station" style="font-size: 2rem;"></i>
-        <h3>Chỉ số năng lượng hôm nay</h3>
-        <div id="energyLevel" style="font-size: 2rem; font-weight: bold;">78%</div>
-        <progress id="energyProgress" value="78" max="100" style="width:100%; height:12px; border-radius:10px;"></progress>
-        <button id="refreshEnergy" style="margin-top: 12px; background: none; border:1px solid; border-radius: 30px; padding: 6px 12px;">Cập nhật</button>
+      <div class="widget-card">
+        <i class="fas fa-charging-station" style="font-size: 2.2rem; color:#b88b6b;"></i>
+        <h3 style="margin: 16px 0;">Chỉ số năng lượng hôm nay</h3>
+        <div id="energyLevel" style="font-size: 2.5rem; font-weight: bold;">78%</div>
+        <progress id="energyProgress" value="78" max="100" style="width:100%; margin: 12px 0;"></progress>
+        <button id="refreshEnergy" style="background: none; border: 1px solid #b88b6b; border-radius: 40px; padding: 8px 20px; cursor: pointer; margin-top: 12px;">Cập nhật</button>
       </div>
       <div class="widget-card">
-        <i class="fas fa-calendar-alt"></i>
-        <h3>📅 Đếm ngược: Trăng tròn huyền bí</h3>
+        <i class="fas fa-calendar-alt" style="font-size: 2rem; color:#b88b6b;"></i>
+        <h3>Đếm ngược: Trăng tròn huyền bí</h3>
         <div class="countdown" id="countdownTimer">
           <span id="days">00</span> <span id="hours">00</span> <span id="mins">00</span> <span id="secs">00</span>
         </div>
@@ -222,15 +531,15 @@
     </div>
   </div>
 
-  <!-- SLIDER TRẢI NGHIỆM KHÁCH HÀNG -->
+  <!-- Testimonial Slider -->
   <div class="section">
-    <h2>🌟 Khách hàng nói gì về Hoàng</h2>
+    <h2>🌟 Cảm nhận từ khách hàng</h2>
     <div class="testimonial-slider">
       <button class="slider-btn prev"><i class="fas fa-chevron-left"></i></button>
       <div class="testimonial-track" id="testimonialTrack">
-        <div class="testimonial-card"><i class="fas fa-quote-left"></i><p>"Hoàng đã đọc Lenormand cho tôi về công việc, siêu chính xác và nhẹ nhàng. Tôi như được tiếp thêm năng lượng."</p><h4>- Minh Anh</h4></div>
-        <div class="testimonial-card"><i class="fas fa-quote-left"></i><p>"Lần đầu trải bài Abysuss, tôi đã khóc – vì được thấu hiểu. Hoàng vừa là reader vừa là người chữa lành."</p><h4>- Thanh Tú</h4></div>
-        <div class="testimonial-card"><i class="fas fa-quote-left"></i><p>"Những bài viết về Tarot của Hoàng rất sâu sắc, cuốn hút. Một writer tài năng!"</p><h4>- Ngọc Hân</h4></div>
+        <div class="testimonial-card"><i class="fas fa-quote-left" style="font-size: 2rem; color:#dccbbc;"></i><p style="margin: 20px 0;">“Hoàng đọc Lenormand cho tôi về sự nghiệp, chính xác và đầy trực cảm. Tôi thấy nhẹ nhàng và có hướng đi mới.”</p><h4>— Minh Anh</h4></div>
+        <div class="testimonial-card"><i class="fas fa-quote-left" style="font-size: 2rem; color:#dccbbc;"></i><p style="margin: 20px 0;">“Lần đầu trải bài Abysuss, tôi đã khóc vì được thấu hiểu sâu sắc. Hoàng vừa là reader vừa là người dẫn dắt tâm hồn.”</p><h4>— Thanh Tú</h4></div>
+        <div class="testimonial-card"><i class="fas fa-quote-left" style="font-size: 2rem; color:#dccbbc;"></i><p style="margin: 20px 0;">“Những bài viết về Tarot của Hoàng cuốn hút và rất giàu chất văn chương. Một writer tài năng!”</p><h4>— Ngọc Hân</h4></div>
       </div>
       <button class="slider-btn next"><i class="fas fa-chevron-right"></i></button>
     </div>
@@ -238,132 +547,93 @@
 
   <!-- FAQ Accordion -->
   <div class="section">
-    <h2>💬 Câu hỏi thường gặp</h2>
+    <h2>💬 Giải đáp thắc mắc</h2>
     <div class="faq-list">
-      <div class="faq-item"><div class="faq-question">Tarot có phải là bói toán không? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Tarot là công cụ soi chiếu tiềm thức, không phải bói toán đen trắng. Hoàng giúp bạn nhìn nhận vấn đề và đưa ra lựa chọn tỉnh thức.</div></div>
-      <div class="faq-item"><div class="faq-question">Tôi chưa biết gì về Tarot, có thể đọc bài được không? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Chắc chắn rồi! Hoàng sẽ giải thích cặn kẽ từng lá bài, phù hợp cho cả người mới.</div></div>
-      <div class="faq-item"><div class="faq-question">Làm sao để đặt lịch đọc bài với Hoàng? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Bạn có thể liên hệ qua email hoặc mạng xã hội ở phần cuối trang, tôi sẽ phản hồi trong 24h.</div></div>
+      <div class="faq-item"><div class="faq-question">Tarot có phải là bói toán mê tín không? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Tarot là công cụ chiêm nghiệm và soi chiếu nội tâm, giúp bạn hiểu rõ vấn đề và lựa chọn tỉnh thức, không hề mê tín.</div></div>
+      <div class="faq-item"><div class="faq-question">Tôi chưa biết gì về Tarot, có thể đọc bài được không? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Chắc chắn rồi! Hoàng sẽ giải thích cặn kẽ từng lá bài, phù hợp cho cả người mới trải nghiệm.</div></div>
+      <div class="faq-item"><div class="faq-question">Làm thế nào để đặt lịch đọc bài riêng? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Bạn chỉ cần liên hệ qua email hoặc mạng xã hội ở phần cuối trang, tôi sẽ phản hồi trong 24 giờ.</div></div>
     </div>
   </div>
 
-  <!-- FOOTER + CONTACT -->
+  <!-- Contact -->
   <div class="section" id="contact">
     <h2>🌙 Kết nối với Hoàng</h2>
-    <div style="text-align:center;"><p>Đặt lịch đọc bài 1-1 hoặc nhận tư vấn tarot qua tin nhắn.</p></div>
-    <div class="contact-links" style="display: flex; gap:20px; justify-content: center; flex-wrap:wrap; margin: 30px 0;">
-      <a href="#" class="contact-link" style="background:#2c2b28; color:white; padding:12px 28px; border-radius:60px; text-decoration:none;"><i class="fab fa-instagram"></i> @hoang.tarotwriter</a>
-      <a href="#" class="contact-link" style="background:#2c2b28; color:white; padding:12px 28px; border-radius:60px;"><i class="fab fa-facebook"></i> Hoàng Tarot & Writer</a>
-      <a href="#" class="contact-link" style="background:#2c2b28; color:white; padding:12px 28px; border-radius:60px;"><i class="fas fa-envelope"></i> hoang.tarot@huyenbi.com</a>
+    <div style="text-align: center; max-width: 600px; margin: 0 auto 20px;">Đặt lịch đọc bài 1-1 hoặc nhận tư vấn tarot qua tin nhắn. Rất mong được đồng hành cùng bạn.</div>
+    <div class="contact-links">
+      <a href="#" class="contact-link"><i class="fab fa-instagram"></i> @hoang.tarotwriter</a>
+      <a href="#" class="contact-link"><i class="fab fa-facebook"></i> Hoàng Tarot & Writer</a>
+      <a href="#" class="contact-link"><i class="fas fa-envelope"></i> hoang.tarot@huyenbi.com</a>
     </div>
   </div>
 </div>
-<footer style="text-align:center; padding: 32px;">© 2025 Hoàng — Tarot Reader & Writer. Lenormand · Ma Sói · Oracle · Waite-Smith · Bài Tây · Abysuss</footer>
+
+<footer>
+  <p>© 2025 Hoàng — Tarot Reader & Writer. Lenormand · Ma Sói · Oracle · Waite-Smith · Bài Tây · Abysuss</p>
+  <p style="margin-top: 12px; font-size: 0.8rem;"><i class="fas fa-moon"></i> Kể chuyện bằng lá bài, chạm vào tâm thức bằng con chữ</p>
+</footer>
 
 <script>
-  // Dark Mode
+  // Dark mode
   const darkToggle = document.getElementById('darkModeToggle');
   darkToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
   });
-  if(localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
+  if(localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
+  const styleDark = document.createElement('style');
+  styleDark.textContent = `
+    body.dark-mode { background: #18181a; color: #e2ded9; }
+    body.dark-mode .deck-card, body.dark-mode .widget-card, body.dark-mode .daily-card, body.dark-mode .testimonial-card, body.dark-mode .faq-item, body.dark-mode .hero-image { background: #26262c; border-color: #3c3c44; color: #e0dbd3; }
+    body.dark-mode .hero { background: linear-gradient(135deg, #1e1e22, #2a282d); }
+    body.dark-mode .btn-primary { background: #b88b6b; color:#1a1a1c; }
+    body.dark-mode .btn-outline { border-color:#b88b6b; color:#b88b6b; }
+    body.dark-mode .icon-btn { background: #2c2c33; color:#e2dbd1; border-color:#4a4550; }
+    body.dark-mode .contact-link { background:#b88b6b; color:#1e1e22; }
+    body.dark-mode .countdown span { background:#b88b6b; color:#1a1a1c; }
+  `;
+  document.head.appendChild(styleDark);
 
-  // Daily Tarot Draw
-  const tarotMessages = [
-    "✨ The Star - Hy vọng, cảm hứng mới đang đến với bạn.",
-    "🌙 The Moon - Lắng nghe trực giác, bí ẩn sẽ được khám phá.",
-    "☀️ The Sun - Thành công, niềm vui và sự rõ ràng.",
-    "⚖️ Justice - Cân bằng, nghiệp quả và sự thật.",
-    "🌀 Wheel of Fortune - Thay đổi, vận may chuyển mình.",
-    "❤️ Two of Cups - Kết nối tình cảm sâu sắc."
-  ];
-  const drawBtn = document.getElementById('drawCardBtn');
-  const dailyResultDiv = document.getElementById('dailyResult');
-  drawBtn.addEventListener('click', () => {
-    const randomIndex = Math.floor(Math.random() * tarotMessages.length);
-    const message = tarotMessages[randomIndex];
-    dailyResultDiv.style.display = 'block';
-    dailyResultDiv.innerHTML = `<i class="fas fa-tarot"></i> <strong>LÁ BÀI CỦA BẠN:</strong> ${message}<br><small>Thông điệp từ Hoàng: hãy đón nhận với trái tim rộng mở.</small>`;
+  // Daily draw
+  const messages = ["✨ The Star - Hy vọng & cảm hứng mới đang đến", "🌙 The Moon - Lắng nghe trực giác, bí ẩn hé lộ", "☀️ The Sun - Niềm vui, thành công rực rỡ", "⚖️ Justice - Cân bằng & sự thật hiển hiện", "🌀 Wheel - Chuyển động tốt, vận mệnh xoay chuyển", "❤️ Two of Cups - Kết nối sâu sắc, tình cảm viên mãn"];
+  document.getElementById('drawCardBtn').addEventListener('click', () => {
+    const rand = Math.floor(Math.random() * messages.length);
+    const div = document.getElementById('dailyResult');
+    div.style.display = 'block';
+    div.innerHTML = `<i class="fas fa-tarot"></i> <strong>${messages[rand]}</strong><br><small>Thông điệp từ Hoàng: Hãy đón nhận bằng trái tim rộng mở.</small>`;
   });
 
   // Energy Meter
   const energySpan = document.getElementById('energyLevel');
   const energyProgress = document.getElementById('energyProgress');
-  const refreshEnergy = document.getElementById('refreshEnergy');
-  function updateEnergy() {
-    let newEnergy = Math.floor(Math.random() * 40) + 55; // 55-95%
-    energySpan.innerText = newEnergy + '%';
-    energyProgress.value = newEnergy;
-  }
-  refreshEnergy.addEventListener('click', updateEnergy);
-  updateEnergy();
-
-  // Countdown to next full moon (set ví dụ 10 ngày tới)
-  function getNextFullMoon() {
-    let now = new Date();
-    let next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + (15 - now.getDate() % 15), 19, 0, 0);
-    if(next < now) next.setMonth(next.getMonth()+1);
-    return next;
-  }
+  document.getElementById('refreshEnergy').addEventListener('click', () => {
+    let val = Math.floor(Math.random() * 45) + 55;
+    energySpan.innerText = val + '%';
+    energyProgress.value = val;
+  });
+  // Countdown
+  function getNextEvent() { let d = new Date(); d.setDate(d.getDate() + (12 - d.getDate()%12)); d.setHours(20,0,0); return d; }
   function updateCountdown() {
-    const target = getNextFullMoon();
-    const now = new Date();
-    const diff = target - now;
-    if(diff <= 0) { document.getElementById('days').innerText = "00"; document.getElementById('hours').innerText="00"; document.getElementById('mins').innerText="00"; document.getElementById('secs').innerText="00"; return; }
-    const days = Math.floor(diff / (1000*60*60*24));
-    const hours = Math.floor((diff % (86400000))/3600000);
-    const mins = Math.floor((diff % 3600000)/60000);
-    const secs = Math.floor((diff % 60000)/1000);
-    document.getElementById('days').innerText = days < 10 ? '0'+days : days;
-    document.getElementById('hours').innerText = hours < 10 ? '0'+hours : hours;
-    document.getElementById('mins').innerText = mins < 10 ? '0'+mins : mins;
-    document.getElementById('secs').innerText = secs < 10 ? '0'+secs : secs;
+    let target = getNextEvent(), now = new Date(), diff = target - now;
+    if(diff<=0) return;
+    document.getElementById('days').innerText = String(Math.floor(diff/86400000)).padStart(2,'0');
+    document.getElementById('hours').innerText = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+    document.getElementById('mins').innerText = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+    document.getElementById('secs').innerText = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
   }
-  setInterval(updateCountdown, 1000);
-  updateCountdown();
+  setInterval(updateCountdown,1000); updateCountdown();
 
-  // Testimonial Slider
-  const track = document.getElementById('testimonialTrack');
-  const prevBtn = document.querySelector('.prev');
-  const nextBtn = document.querySelector('.next');
-  let slideIndex = 0;
-  const slides = document.querySelectorAll('.testimonial-card');
-  const totalSlides = slides.length;
-  function updateSlider() {
-    track.style.transform = `translateX(-${slideIndex * 100}%)`;
-  }
-  nextBtn.addEventListener('click', () => { slideIndex = (slideIndex + 1) % totalSlides; updateSlider(); });
-  prevBtn.addEventListener('click', () => { slideIndex = (slideIndex - 1 + totalSlides) % totalSlides; updateSlider(); });
+  // Slider
+  let idx=0, track=document.getElementById('testimonialTrack'), slides=document.querySelectorAll('.testimonial-card'), total=slides.length;
+  document.querySelector('.next').addEventListener('click',()=>{ idx=(idx+1)%total; track.style.transform=`translateX(-${idx*100}%)`; });
+  document.querySelector('.prev').addEventListener('click',()=>{ idx=(idx-1+total)%total; track.style.transform=`translateX(-${idx*100}%)`; });
 
-  // FAQ Accordion
-  document.querySelectorAll('.faq-question').forEach(q => {
-    q.addEventListener('click', function() {
-      const parent = this.parentElement;
-      parent.classList.toggle('active');
-    });
-  });
+  // FAQ
+  document.querySelectorAll('.faq-question').forEach(q => { q.addEventListener('click', function() { this.parentElement.classList.toggle('active'); }); });
 
-  // Music Toggle
-  const musicToggle = document.getElementById('musicToggle');
-  const bgMusic = document.getElementById('bgMusic');
-  const musicTextSpan = document.getElementById('musicText');
-  let musicPlaying = false;
-  musicToggle.addEventListener('click', () => {
-    if(musicPlaying) {
-      bgMusic.pause();
-      musicTextSpan.innerText = "Nhạc nền";
-    } else {
-      bgMusic.play().catch(e => console.log("autoplay blocked"));
-      musicTextSpan.innerText = "Tắt nhạc";
-    }
-    musicPlaying = !musicPlaying;
-  });
-
-  // Energy Meter Modal / thông báo thêm fun
-  const energyBtn = document.getElementById('energyMeterBtn');
-  energyBtn.addEventListener('click', () => {
-    alert(`⚡ Năng lượng hôm nay: ${energySpan.innerText}\nHãy nghỉ ngơi và nghe theo trực giác.`);
-  });
+  // Music
+  let musicPlaying=false, music=document.getElementById('bgMusic'), musicText=document.getElementById('musicText');
+  document.getElementById('musicToggle').addEventListener('click',()=>{ if(musicPlaying){ music.pause(); musicText.innerText='Âm nhạc nền'; } else { music.play().catch(e=>{}); musicText.innerText='Tắt nhạc'; } musicPlaying=!musicPlaying; });
+  document.getElementById('energyMeterBtn').addEventListener('click',()=>{ alert(`🔮 Năng lượng hôm nay: ${energySpan.innerText}\nHãy dành thời gian nghỉ ngơi và kết nối với thiên nhiên.`); });
 </script>
 </body>
 </html>
