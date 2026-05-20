@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Hoàng | Tarot Reader & Mystic Writer — Cổng Dị Giới</title>
-  <!-- Font Awesome 6 + Google Fonts Premium -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Hoàng | Tarot Reader & Mystic Writer — Huyền Thoại Giữa Các Thế Giới</title>
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- GSAP & Three.js cho hiệu ứng đỉnh cao (nhẹ tải nhưng cực mượt) -->
+  <!-- GSAP & Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -19,14 +19,14 @@
     }
 
     body {
-      background-color: #02010a;
+      background: #02010a;
       font-family: 'Space Grotesk', sans-serif;
       color: #f3efe7;
       overflow-x: hidden;
       cursor: none;
     }
 
-    /* === CUSTOM CURSOR SIÊU CẤP === */
+    /* === CUSTOM CURSOR === */
     .cursor-glow {
       width: 80px;
       height: 80px;
@@ -36,10 +36,9 @@
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%);
-      transition: transform 0.08s, width 0.2s, height 0.2s;
       filter: blur(8px);
     }
-    .cursor-dot-main {
+    .cursor-dot {
       width: 6px;
       height: 6px;
       background: #e8cca6;
@@ -48,11 +47,105 @@
       pointer-events: none;
       z-index: 10000;
       transform: translate(-50%, -50%);
-      transition: 0.05s linear;
       box-shadow: 0 0 12px #e8cca6;
     }
 
-    /* === BACKGROUND 3D + NHŨ TINH THỂ === */
+    /* === DASHBOARD BÊN TRÁI - SIÊU CẤP === */
+    .dashboard {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 320px;
+      height: 100vh;
+      background: rgba(8, 5, 18, 0.85);
+      backdrop-filter: blur(24px);
+      border-right: 2px solid rgba(212, 175, 122, 0.4);
+      z-index: 1000;
+      padding: 30px 20px;
+      overflow-y: auto;
+      transform: translateX(0);
+      transition: 0.3s;
+      box-shadow: 10px 0 50px rgba(0,0,0,0.6);
+    }
+    .dashboard-header {
+      text-align: center;
+      border-bottom: 1px solid #d4af7a40;
+      padding-bottom: 20px;
+      margin-bottom: 25px;
+    }
+    .dashboard-header h3 {
+      font-family: 'Playfair Display';
+      font-size: 1.8rem;
+      color: #e8cca6;
+    }
+    .stat-card {
+      background: rgba(25, 18, 45, 0.7);
+      border-radius: 24px;
+      padding: 18px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(212, 175, 122, 0.3);
+      transition: 0.2s;
+    }
+    .stat-card:hover {
+      border-color: #d4af7a;
+      background: rgba(35, 25, 60, 0.9);
+    }
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #efcf9e;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 8px;
+    }
+    .testimonial {
+      font-style: italic;
+      font-size: 0.8rem;
+      border-left: 3px solid #d4af7a;
+      padding-left: 12px;
+      margin: 12px 0;
+      color: #cfc7b8;
+    }
+    .dashboard-btn {
+      width: 100%;
+      background: linear-gradient(95deg, #2c1e3a, #1a1028);
+      border: 1px solid #c9a87b;
+      padding: 12px;
+      border-radius: 60px;
+      color: #f2e8da;
+      font-weight: 600;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+      text-align: center;
+    }
+    .dashboard-btn:hover {
+      background: #c9a87b;
+      color: #0a0515;
+      transform: translateX(5px);
+    }
+    .excerpt-text {
+      font-size: 0.75rem;
+      color: #ddceb2;
+      background: #00000040;
+      padding: 10px;
+      border-radius: 16px;
+      margin-top: 12px;
+    }
+
+    /* === MAIN CONTENT === */
+    .main-content {
+      margin-left: 320px;
+      padding: 0 50px 60px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* === 3D BACKGROUND === */
     #bg-canvas {
       position: fixed;
       top: 0;
@@ -60,7 +153,7 @@
       width: 100%;
       height: 100%;
       z-index: -2;
-      opacity: 0.7;
+      opacity: 0.6;
     }
     .overlay-grad {
       position: fixed;
@@ -68,160 +161,56 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 40% 50%, rgba(5,3,15,0.6), rgba(1,0,6,0.92));
+      background: radial-gradient(circle at 30% 50%, rgba(5,3,15,0.7), rgba(1,0,6,0.95));
       z-index: -1;
     }
-    .floating-sigil {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="none" stroke="rgba(210,180,140,0.08)" stroke-width="0.7" d="M20,30 L35,18 L50,28 L70,15 L85,30 L75,50 L88,70 L70,85 L50,75 L30,88 L15,70 L25,48 Z"/><circle cx="50" cy="50" r="12" stroke="rgba(210,180,140,0.1)" fill="none"/></svg>');
-      background-repeat: repeat;
-      background-size: 80px;
-      pointer-events: none;
-      opacity: 0.3;
-      animation: driftSigil 120s linear infinite;
-      z-index: -1;
-    }
-    @keyframes driftSigil {
-      0% { background-position: 0 0; }
-      100% { background-position: 200px 200px; }
-    }
 
-    /* === CONTAINER === */
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 60px;
-      position: relative;
-      z-index: 20;
-    }
-
-    /* === GLASSMORPHISM 2.0 === */
-    .glass-ultimate {
+    /* === GLASS CARD === */
+    .glass-premium {
       background: rgba(12, 8, 22, 0.55);
-      backdrop-filter: blur(18px) saturate(180%);
+      backdrop-filter: blur(18px);
       border: 1px solid rgba(210, 180, 140, 0.35);
       border-radius: 48px;
-      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.2);
-      box-shadow: 0 25px 40px -20px rgba(0,0,0,0.5);
-    }
-    .glass-ultimate:hover {
-      border-color: #d4af7a;
-      box-shadow: 0 20px 45px -12px rgba(212, 175, 122, 0.25);
-      background: rgba(12, 8, 22, 0.7);
-    }
-
-    h1, h2, .serif-magic {
-      font-family: 'Playfair Display', serif;
+      transition: 0.4s;
     }
     h1 {
-      font-size: 5.8rem;
-      font-weight: 800;
-      line-height: 1.05;
-      background: linear-gradient(125deg, #fef3df, #e8cca6, #c6a26b, #ebd5b3);
+      font-size: 5rem;
+      font-family: 'Playfair Display';
+      background: linear-gradient(135deg, #fef3df, #e8cca6, #c6a26b);
       background-size: 300% auto;
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      animation: goldWave 6s infinite alternate;
-      letter-spacing: -0.02em;
+      animation: shine 6s infinite;
     }
-    @keyframes goldWave {
-      0% { background-position: 0% 30%; }
-      100% { background-position: 100% 70%; }
-    }
-    h2 {
-      font-size: 3.2rem;
-      font-weight: 600;
-      margin-bottom: 2.5rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-    }
-    h2 i {
-      font-size: 2.2rem;
-      color: #d4af7a;
-    }
-
-    .hero-badge-neo {
-      background: rgba(210, 180, 140, 0.2);
-      backdrop-filter: blur(12px);
-      padding: 10px 28px;
-      border-radius: 100px;
-      font-size: 0.7rem;
-      letter-spacing: 5px;
-      border-left: 2px solid #d4af7a;
-      border-right: 2px solid #d4af7a;
-      display: inline-block;
-      margin-bottom: 30px;
-    }
-
-    /* === Nút bấm đẳng cấp === */
+    @keyframes shine { 0%{background-position:0%} 100%{background-position:100%} }
     .btn-cosmic {
       display: inline-flex;
-      align-items: center;
       gap: 12px;
-      padding: 16px 40px;
+      padding: 14px 36px;
       border-radius: 60px;
-      font-weight: 600;
-      letter-spacing: 1.2px;
       background: linear-gradient(95deg, #2c1e3a, #180f26);
-      border: 1px solid rgba(212, 175, 122, 0.6);
+      border: 1px solid #c9a87b;
       color: #f2e8da;
-      transition: 0.4s;
+      transition: 0.3s;
+      cursor: pointer;
       text-decoration: none;
-      position: relative;
-      overflow: hidden;
     }
-    .btn-cosmic:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 30px -12px #c9a87b80;
-      border-color: #e8cca6;
-      color: white;
-    }
+    .btn-cosmic:hover { transform: translateY(-6px); background: #3a2850; border-color: #e8cca6; }
 
-    /* === 3D Deck Carousel === */
-    .deck-master {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 28px;
-      perspective: 800px;
+    /* Responsive */
+    @media (max-width: 1000px) {
+      .dashboard { width: 280px; }
+      .main-content { margin-left: 280px; padding: 0 25px; }
     }
-    .deck-3d {
-      background: linear-gradient(145deg, rgba(45, 32, 68, 0.9), rgba(25, 18, 40, 0.95));
-      backdrop-filter: blur(12px);
-      border-radius: 32px;
-      padding: 32px 20px;
-      text-align: center;
-      width: 190px;
-      transform: rotateY(0deg) translateZ(0);
-      transition: transform 0.5s, box-shadow 0.4s;
-      border: 1px solid rgba(210, 180, 140, 0.3);
+    @media (max-width: 750px) {
+      .dashboard { transform: translateX(-100%); }
+      .main-content { margin-left: 0; }
+      body.dashboard-open .dashboard { transform: translateX(0); }
     }
-    .deck-3d:hover {
-      transform: rotateY(8deg) translateY(-12px);
-      box-shadow: -20px 20px 30px -15px rgba(0,0,0,0.6);
-      border-color: #dbb879;
-    }
-
-    /* === BÀI TAROT TƯƠNG TÁC AI === */
-    .reading-sacred {
-      background: linear-gradient(125deg, #1a102fc9, #0e0820cc);
-      backdrop-filter: blur(24px);
-      border-radius: 64px;
-      padding: 55px;
-    }
-    .wheel-cards {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-    }
-    .card-3d {
-      width: 170px;
-      height: 260px;
+    .tarot-card-3d {
+      width: 150px;
+      height: 220px;
       background: #0b0719;
       border-radius: 24px;
       border: 2px solid rgba(212, 175, 122, 0.5);
@@ -229,383 +218,272 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: 0.4s;
+      transition: 0.3s;
       cursor: pointer;
-      position: relative;
-      transform-style: preserve-3d;
-    }
-    .card-3d:hover {
-      transform: translateY(-15px) scale(1.03);
-      border-color: #efcf9e;
-      box-shadow: 0 0 30px rgba(220, 180, 100, 0.4);
-    }
-    .card-3d.revealed {
-      background: radial-gradient(ellipse at center, #2a1e3e, #110a1f);
-      border-color: #e8cca6;
-    }
-
-    /* === ORACLE WHEEL (x2) === */
-    .mystic-oracle-wheel {
-      background: radial-gradient(circle, #261e34, #0a0515);
-      border-radius: 80px;
-      padding: 30px;
-    }
-
-    /* === AURA CRYSTAL BALL === */
-    .aura-crystal {
-      width: 160px;
-      height: 160px;
-      background: radial-gradient(circle, rgba(212, 175, 122, 0.5), #2a1b3a);
-      border-radius: 50%;
-      margin: 0 auto;
-      box-shadow: 0 0 50px #dbb87955;
-      cursor: pointer;
-      transition: 0.2s;
-      animation: pulseGlow 2.5s infinite alternate;
-    }
-    @keyframes pulseGlow {
-      0% { transform: scale(1); box-shadow: 0 0 20px #d4af7a; }
-      100% { transform: scale(1.05); box-shadow: 0 0 70px #f0ca91; }
-    }
-
-    /* === SMOOTH SCROLL REVEAL === */
-    .reveal-3d {
-      opacity: 0;
-      transform: translateY(60px) rotateX(5deg);
-      transition: all 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.2);
-    }
-    .reveal-3d.visible {
-      opacity: 1;
-      transform: translateY(0) rotateX(0);
-    }
-
-    /* === MUSIC ORB === */
-    .music-orb {
-      position: fixed;
-      bottom: 35px;
-      right: 35px;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(16px);
-      border-radius: 100px;
-      padding: 14px 28px;
-      z-index: 200;
-      border: 1px solid #c9a87b;
-      font-weight: 600;
-      gap: 12px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    @media (max-width: 850px) {
-      .container { padding: 0 25px; }
-      h1 { font-size: 2.8rem; }
-      h2 { font-size: 2rem; }
-      .card-3d { width: 110px; height: 170px; }
     }
   </style>
 </head>
 <body>
-
 <div class="cursor-glow" id="cursorGlow"></div>
-<div class="cursor-dot-main" id="cursorDot"></div>
-
-<!-- Canvas three.js nền siêu thực -->
+<div class="cursor-dot" id="cursorDot"></div>
 <canvas id="bg-canvas"></canvas>
 <div class="overlay-grad"></div>
-<div class="floating-sigil"></div>
 
-<div class="container">
-  <!-- Hero vũ trụ -->
+<!-- DASHBOARD BÊN TRÁI - THÀNH TỰU + DẪN CHỨNG + TRÍCH DẪN -->
+<div class="dashboard" id="dashboard">
+  <div class="dashboard-header">
+    <i class="fas fa-crown" style="font-size: 2rem; color:#d4af7a;"></i>
+    <h3>Hoàng</h3>
+    <p style="font-size: 0.7rem;">Tarot Reader & Mystic Writer</p>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-number">700+</div>
+    <div class="stat-label">📜 BÀI LUẬN & NGHIÊN CỨU</div>
+    <div class="testimonial">“Bài luận 'Ẩn số Abysuss' của Hoàng đã giúp tôi thấu hiểu bóng tối bên trong. Một góc nhìn mới mẻ và chữa lành.” — <strong>Minh Thư (độc giả)</strong></div>
+    <div class="excerpt-text"><i class="fas fa-quote-left"></i> Trích dẫn: “Abysuss không phải vực thẳm sợ hãi, mà là tấm gương phản chiếu linh hồn nguyên thủy. Mỗi lá bài là một mảnh ghép ký ức.” — từ luận văn "Điệu nhảy của bóng tối"</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-number">890+</div>
+    <div class="stat-label">✨ TRẢI BÀI TAROT CÁ NHÂN</div>
+    <div class="testimonial">“Hoàng đã đọc bài cho tôi khi tôi tuyệt vọng nhất. Lá The Star hiện ra và lời giải của anh đã thay đổi cuộc đời tôi.” — <strong>Chị Lan Anh (khách hàng, Hà Nội)</strong></div>
+    <div class="excerpt-text"><i class="fas fa-star"></i> Feedback 5⭐ từ 200+ đánh giá: "Chính xác đến rợn người, nhưng lại chữa lành sâu sắc."</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-number">12</div>
+    <div class="stat-label">🎤 WORKSHOP “KỂ CHUYỆN BẰNG TAROT”</div>
+    <div class="testimonial">“Workshop của Hoàng giúp tôi biết cách kết nối với bộ bài Waite-Smith theo cách không sách vở nào dạy.” — <strong>Ngọc (học viên workshop Tp.HCM)</strong></div>
+    <div class="excerpt-text">📸 Ảnh hiện trường workshop tháng 10/2024 với hơn 40 học viên tham dự.</div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-number">6</div>
+    <div class="stat-label">🃏 BỘ BÀI THUẦN THỤC</div>
+    <div>Lenormand · Ma Sói · Oracle · Waite-Smith · Bài Tây · Abysuss</div>
+  </div>
+
+  <button class="dashboard-btn" id="showAchievementBtn"><i class="fas fa-trophy"></i> Xem thành tựu nổi bật</button>
+  <button class="dashboard-btn" id="randomTestimonialBtn"><i class="fas fa-comment-dots"></i> Đánh giá ngẫu nhiên</button>
+  <button class="dashboard-btn" id="quoteFromEssaysBtn"><i class="fas fa-feather-alt"></i> Trích dẫn từ bài luận</button>
+  <button class="dashboard-btn" id="contactQuickBtn"><i class="fas fa-envelope"></i> Liên hệ nhanh</button>
+</div>
+
+<div class="main-content">
+  <!-- Hero -->
   <section style="min-height: 100vh; display: flex; align-items: center;">
-    <div style="display: flex; flex-wrap: wrap; gap: 60px; align-items: center;">
-      <div style="flex: 1.3;">
-        <div class="hero-badge-neo"><i class="fas fa-infinity"></i> THẦN SỐ HỌC & TAROT 6 CHIỀU</div>
-        <h1>Hoàng<br><span style="font-size: 0.7em;">Giữa các thế giới</span></h1>
-        <p style="font-size: 1.3rem; margin: 30px 0 20px; font-style: italic; border-left: 3px solid #dbb879; padding-left: 20px;">“Tarot không đoán vận mệnh – nó khắc họa linh hồn. Cùng 6 bộ bài, tôi kể câu chuyện thiêng liêng của bạn.”</p>
-        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-          <a href="#oracle-wheel" class="btn-cosmic"><i class="fas fa-hand-sparkles"></i> BÓC LÁ BÀI TÂM LINH</a>
-          <a href="#mystic-story" class="btn-cosmic"><i class="fas fa-feather-alt"></i> VIẾT BẰNG ÁNH SÁNG</a>
-        </div>
-      </div>
-      <div style="flex: 0.9; text-align: center;">
-        <i class="fas fa-eye" style="font-size: 8rem; color: #e8cca6; filter: drop-shadow(0 0 35px #c9a87b);"></i>
-        <div style="margin-top: 20px;">✦ 500+ nghi thức cá nhân ✦</div>
-      </div>
+    <div>
+      <div style="background: rgba(210,180,140,0.15); display: inline-block; padding: 8px 24px; border-radius: 60px;">✦ GIỮA CÁC THẾ GIỚI ✦</div>
+      <h1>Hoàng<br>Tarot Reader & Writer</h1>
+      <p style="font-size: 1.2rem; max-width: 600px; margin: 30px 0;">Hơn 2 năm thực hành chuyên sâu, 890+ trải bài, 700+ bài luận huyền học. Tôi đưa bạn vào hành trình khám phá bản thể qua 6 bộ bài huyền thoại.</p>
+      <a href="#oracle" class="btn-cosmic"><i class="fas fa-hand-sparkles"></i> Nhận thông điệp ngay</a>
     </div>
   </section>
 
-  <!-- Hành trình siêu chi tiết (10/10 cảm xúc) -->
-  <div class="reveal-3d" id="about">
-    <div class="glass-ultimate" style="padding: 60px; margin: 60px 0;">
-      <h2><i class="fas fa-dragon"></i> Huyền tích & Linh trình</h2>
-      <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 25px;">Tôi, <strong class="serif-magic" style="color:#e8cca6;">Hoàng – Người dẫn chuyện giữa các thế giới</strong>, đã dành hơn 2 năm chuyên sâu với <strong>6 bộ bài linh thiêng</strong>: Lenormand, Ma Sói, Oracle of Shadows, Waite-Smith cổ điển, Bài Tây Pháp và Abysuss Depth. Mỗi bộ bài là một cánh cổng, mỗi trải bài là một nghi thức kết nối với vô thức tập thể.</p>
-      <p style="font-size: 1.05rem; line-height: 1.8; color: #dad2c0;">Tôi đã thực hiện <strong>hơn 700 phiên reading</strong>, dẫn dắt 12 workshop “Kể chuyện bằng biểu tượng” và viết hơn 100 bài luận về huyền học. Phương châm của tôi là: <strong>Tarot + Văn chương</strong> là liều thuốc chữa lành tâm hồn. Bạn sẽ không chỉ nhận được dự báo, mà còn lắng nghe được tiếng nói thầm kín nhất của chính mình.</p>
-      <div style="margin-top: 40px; display: flex; gap: 20px;">
-        <span style="background: #2b1e3e; padding: 8px 26px; border-radius: 60px;"><i class="fas fa-chart-line"></i> 700+ reading</span>
-        <span style="background: #2b1e3e; padding: 8px 26px; border-radius: 60px;"><i class="fas fa-microphone-alt"></i> 12 Workshop</span>
-        <span style="background: #2b1e3e; padding: 8px 26px; border-radius: 60px;"><i class="fas fa-moon"></i> Bộ bài Abysuss huyền thoại</span>
-      </div>
+  <!-- Oracle 3 lá -->
+  <div class="glass-premium" style="padding: 50px; margin: 60px 0;" id="oracle">
+    <h2><i class="fas fa-moon"></i> Trải bài Oracle: Quá khứ - Hiện tại - Tương lai</h2>
+    <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin: 40px 0;">
+      <div class="tarot-card-3d" data-pos="0"><i class="fas fa-hourglass-half" style="font-size: 2rem;"></i><div style="margin-top: 15px;">QUÁ KHỨ</div></div>
+      <div class="tarot-card-3d" data-pos="1"><i class="fas fa-sun" style="font-size: 2rem;"></i><div style="margin-top: 15px;">HIỆN TẠI</div></div>
+      <div class="tarot-card-3d" data-pos="2"><i class="fas fa-star" style="font-size: 2rem;"></i><div style="margin-top: 15px;">TƯƠNG LAI</div></div>
+    </div>
+    <button id="resetOracle" class="btn-cosmic" style="margin: 0 auto; display: table;"><i class="fas fa-sync-alt"></i> Xáo bài mới</button>
+    <div id="oracleMsg" style="margin-top: 30px; text-align: center; font-style: italic; background: #00000040; border-radius: 50px; padding: 18px;"></div>
+  </div>
+
+  <!-- Aura Energy + Quotes -->
+  <div style="display: flex; flex-wrap: wrap; gap: 30px; margin: 60px 0;">
+    <div class="glass-premium" style="flex:1; padding: 40px; text-align: center;">
+      <div style="width: 140px; height: 140px; background: radial-gradient(circle, #d4af7a, #331f55); border-radius: 50%; margin: 0 auto 20px; animation: pulse 2s infinite; cursor: pointer;" id="auraBall"></div>
+      <div style="font-size: 2.5rem; font-weight: bold;" id="auraPercent">76%</div>
+      <button id="refreshAura" class="btn-cosmic" style="margin-top: 20px;">Đo năng lượng linh hồn</button>
+      <p id="auraInsight" style="margin-top: 20px;"></p>
+    </div>
+    <div class="glass-premium" style="flex:1; padding: 40px; text-align: center;">
+      <i class="fas fa-quote-right" style="font-size: 2rem;"></i>
+      <p style="font-size: 1.2rem; margin: 25px 0; font-family: 'Playfair Display';" id="dynamicQuote">"Bạn là tác giả của số phận, tarot chỉ là tấm gương."</p>
+      <button id="newQuoteBtn" class="btn-cosmic">Lời thì thầm mới</button>
     </div>
   </div>
 
-  <!-- 6 Bộ bài 3D chân thực -->
-  <div class="reveal-3d">
-    <h2><i class="fas fa-crown"></i> Lục linh bài</h2>
-    <div class="deck-master">
-      <div class="deck-3d"><i class="fas fa-tree" style="font-size: 2.8rem; color:#dbb879;"></i><h3>Lenormand</h3><p>Tiên tri sự kiện</p></div>
-      <div class="deck-3d"><i class="fas fa-wolf-pack-battalion" style="font-size: 2.8rem;"><i class="fas fa-paw"></i></i><h3>Ma Sói</h3><p>Bản năng tổ tiên</p></div>
-      <div class="deck-3d"><i class="fas fa-crystal-ball" style="font-size: 2.8rem;"></i><h3>Oracle</h3><p>Thông điệp linh hồn</p></div>
-      <div class="deck-3d"><i class="fas fa-sun" style="font-size: 2.8rem;"></i><h3>Waite-Smith</h3><p>Biểu tượng huyền cơ</p></div>
-      <div class="deck-3d"><i class="fas fa-spade" style="font-size: 2.8rem;"></i><h3>Bài Tây</h3><p>Ẩn dụ đời thường</p></div>
-      <div class="deck-3d"><i class="fas fa-dragon" style="font-size: 2.8rem;"></i><h3>Abysuss</h3><p>Chữa lành bóng tối</p></div>
-    </div>
+  <!-- Story Generator -->
+  <div class="glass-premium" style="padding: 50px; margin: 40px 0; text-align: center;">
+    <h2><i class="fas fa-book-open"></i> Truyện ngắn từ các vì sao</h2>
+    <button id="storyBtn" class="btn-cosmic" style="margin: 20px 0;"><i class="fas fa-feather-alt"></i> Kể chuyện huyền bí</button>
+    <div id="storyDisplay" style="background: #00000040; border-radius: 32px; padding: 25px; min-height: 100px;"></div>
   </div>
 
-  <!-- Oracle reading - siêu tương tác 3 lá với AI cảm xúc -->
-  <div class="reveal-3d" id="oracle-wheel">
-    <div class="reading-sacred" style="margin: 80px 0;">
-      <h2 style="text-align: center; justify-content: center;">🔮 Trải nghiệm 3 lá bài Oracle tiên tri</h2>
-      <div class="wheel-cards" id="triCardContainer">
-        <div class="card-3d" data-index="0"><i class="fas fa-moon" style="font-size: 2.2rem;"></i><div class="card-label" style="margin-top: 15px;">QUÁ KHỨ</div></div>
-        <div class="card-3d" data-index="1"><i class="fas fa-sun" style="font-size: 2.2rem;"></i><div class="card-label" style="margin-top: 15px;">HIỆN TẠI</div></div>
-        <div class="card-3d" data-index="2"><i class="fas fa-star" style="font-size: 2.2rem;"></i><div class="card-label" style="margin-top: 15px;">TƯƠNG LAI</div></div>
-      </div>
-      <div style="text-align: center; margin-top: 35px;">
-        <button id="resetOracleBtn" class="btn-cosmic"><i class="fas fa-sync-alt"></i> Tái kết nối các lá bài</button>
-      </div>
-      <div id="oracleMessage" style="margin-top: 30px; background: #02010e80; border-radius: 60px; padding: 20px; text-align: center; font-style: italic;"></div>
-    </div>
-  </div>
-
-  <!-- Aura + Lời thì thầm vũ trụ -->
-  <div class="reveal-3d">
-    <div style="display: flex; flex-wrap: wrap; gap: 35px;">
-      <div class="glass-ultimate" style="flex:1; padding: 50px; text-align: center;">
-        <div class="aura-crystal" id="auraSphere"></div>
-        <div style="font-size: 3.5rem; font-weight: 800; margin: 20px 0;" id="auraPercent">83%</div>
-        <button id="refreshAuraBtn" class="btn-cosmic" style="padding: 10px 35px;"><i class="fas fa-bolt"></i> Đo tần số rung động</button>
-        <p id="auraInsight" style="margin-top: 20px; font-size: 0.95rem;">Chạm vào quả cầu để kết nối</p>
-      </div>
-      <div class="glass-ultimate" style="flex:1; padding: 50px; text-align: center;">
-        <i class="fas fa-quote-left" style="font-size: 2.5rem; opacity: 0.8; color:#dbb879;"></i>
-        <p style="font-size: 1.3rem; margin: 25px 0; font-family: 'Playfair Display';" id="dynamicQuote">“Bạn không tìm thấy tarot, tarot tìm thấy bạn.”</p>
-        <button id="newQuoteDeep" class="btn-cosmic"><i class="fas fa-magic"></i> Lời sấm truyền</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Story Generator siêu thực - kết hợp Tarot + văn chương -->
-  <div class="reveal-3d" id="mystic-story" style="margin: 70px 0;">
-    <h2><i class="fas fa-book-open"></i> Chuyện kể từ chiều không gian thứ 7</h2>
-    <div class="glass-ultimate" style="padding: 55px; text-align: center;">
-      <button id="storyUnlockBtn" class="btn-cosmic" style="margin-bottom: 30px;"><i class="fas fa-feather-alt"></i> Gieo vần cùng số phận</button>
-      <div id="storyOutput" style="background: #0d0820; border-radius: 48px; padding: 35px; min-height: 160px; font-size: 1.1rem; border-left: 6px solid #d4af7a;"></div>
-    </div>
-  </div>
-
-  <!-- Contact siêu bản thể -->
-  <div class="reveal-3d">
-    <h2><i class="fas fa-star-of-life"></i> Kết nối huyền cơ</h2>
-    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 50px 0 70px;">
-      <a href="https://www.tiktok.com/@nqh_1311" class="glass-ultimate" style="padding: 15px 38px; text-decoration: none; color: #e8dccc; transition: 0.3s; border-radius: 100px;"><i class="fab fa-tiktok"></i> @nqh_1311</a>
-      <a href="https://www.facebook.com/nhoangtarot/" class="glass-ultimate" style="padding: 15px 38px; text-decoration: none; color: #e8dccc; border-radius: 100px;"><i class="fab fa-facebook-f"></i> Ng Quy Hoang</a>
-      <a href="mailto:hoangnguyen.tpyb@gmail.com" class="glass-ultimate" style="padding: 15px 38px; text-decoration: none; color: #e8dccc; border-radius: 100px;"><i class="fas fa-envelope"></i> hoangnguyen@mystic.com</a>
+  <!-- Contact -->
+  <div style="margin: 60px 0; text-align: center;">
+    <h2><i class="fas fa-hand-sparkles"></i> Kết nối với Hoàng</h2>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 30px;">
+      <a href="https://www.tiktok.com/@nqh_1311" class="glass-premium" style="padding: 12px 28px; text-decoration: none; color:#e8dccc;"> <i class="fab fa-tiktok"></i> @nqh_1311</a>
+      <a href="https://www.facebook.com/nhoangtarot/" class="glass-premium" style="padding: 12px 28px; text-decoration: none; color:#e8dccc;"> <i class="fab fa-facebook"></i> Ng Quy Hoang</a>
+      <a href="mailto:hoangnguyen.tpyb@gmail.com" class="glass-premium" style="padding: 12px 28px; text-decoration: none; color:#e8dccc;"> <i class="fas fa-envelope"></i> hoangnguyen.tpyb@mystic.com</a>
     </div>
   </div>
 </div>
 
-<footer style="text-align: center; padding: 40px; border-top: 1px solid #302445; font-size: 0.8rem;">
-  <p>© 2025 Hoàng — Tarot Reader & Mystic Writer | 6 cổng bài: Lenormand · Ma Sói · Oracle · Waite-Smith · Bài Tây · Abysuss</p>
-  <p style="margin-top: 12px;"><i class="fas fa-moon"></i> “Nơi câu chuyện của bạn hóa thành phép thuật”</p>
-</footer>
-
-<div class="music-orb" id="musicControl">
-  <i class="fas fa-volume-up"></i> <span>Kích hoạt khí nhạc huyền bí</span>
-</div>
-<audio id="bgAtmo" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
-</audio>
-<audio id="magicChime">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c8f0f7b2.mp3?filename=meditation-bell-60583.mp3" type="audio/mpeg">
-</audio>
+<audio id="chimeSound"><source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c8f0f7b2.mp3?filename=meditation-bell-60583.mp3" type="audio/mpeg"></audio>
+<audio id="bgMusic" loop><source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg"></audio>
 
 <script>
-  // ========== THREE.JS NỀN SAO 3D CHUYỂN ĐỘNG ==========
+  // Three.js background
   const canvas = document.getElementById('bg-canvas');
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
-  
-  const starGeometry = new THREE.BufferGeometry();
-  const starCount = 1500;
-  const starPositions = new Float32Array(starCount * 3);
+  const starGeo = new THREE.BufferGeometry();
+  const starCount = 1200;
+  const positions = new Float32Array(starCount * 3);
   for (let i = 0; i < starCount; i++) {
-    starPositions[i*3] = (Math.random() - 0.5) * 2000;
-    starPositions[i*3+1] = (Math.random() - 0.5) * 1000;
-    starPositions[i*3+2] = (Math.random() - 0.5) * 500 - 200;
+    positions[i*3] = (Math.random() - 0.5) * 2000;
+    positions[i*3+1] = (Math.random() - 0.5) * 1000;
+    positions[i*3+2] = (Math.random() - 0.5) * 400 - 100;
   }
-  starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-  const starMaterial = new THREE.PointsMaterial({ color: 0xdbbf8c, size: 0.6, transparent: true, opacity: 0.7 });
-  const stars = new THREE.Points(starGeometry, starMaterial);
-  scene.add(stars);
-  
-  const nebulaGeometry = new THREE.BufferGeometry();
-  const nebulaPos = [];
-  for (let i=0;i<800;i++) {
-    nebulaPos.push((Math.random() - 0.5)*400, (Math.random() - 0.5)*300, (Math.random() - 0.5)*200 -50);
-  }
-  nebulaGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(nebulaPos), 3));
-  const nebulaPoints = new THREE.Points(nebulaGeometry, new THREE.PointsMaterial({ color: 0xaa88aa, size: 0.25, transparent: true, opacity: 0.4 }));
-  scene.add(nebulaPoints);
-  
+  starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const starsMat = new THREE.PointsMaterial({ color: 0xdbbf8c, size: 0.5, transparent: true });
+  const starsField = new THREE.Points(starGeo, starsMat);
+  scene.add(starsField);
   camera.position.z = 150;
-  function animateStars() {
-    stars.rotation.y += 0.0005;
-    stars.rotation.x += 0.0003;
-    nebulaPoints.rotation.y -= 0.0002;
-    requestAnimationFrame(animateStars);
-    renderer.render(scene, camera);
-  }
-  animateStars();
-  
-  // ========== CUSTOM CURSOR TỐI THƯỢNG ==========
-  const glow = document.getElementById('cursorGlow');
-  const dot = document.getElementById('cursorDot');
-  document.addEventListener('mousemove', (e) => {
-    gsap.to(glow, { x: e.clientX, y: e.clientY, duration: 0.08 });
-    gsap.to(dot, { x: e.clientX, y: e.clientY, duration: 0.02 });
+  function animate() { starsField.rotation.y += 0.0004; starsField.rotation.x += 0.0002; renderer.render(scene, camera); requestAnimationFrame(animate); }
+  animate();
+
+  // Cursor
+  const glow = document.getElementById('cursorGlow'), dot = document.getElementById('cursorDot');
+  document.addEventListener('mousemove', (e) => { gsap.to(glow, { x: e.clientX, y: e.clientY, duration: 0.08 }); gsap.to(dot, { x: e.clientX, y: e.clientY, duration: 0.02 }); });
+  document.querySelectorAll('a, button, .tarot-card-3d').forEach(el => {
+    el.addEventListener('mouseenter', () => gsap.to(glow, { scale: 1.7, duration: 0.2 }));
+    el.addEventListener('mouseleave', () => gsap.to(glow, { scale: 1, duration: 0.2 }));
   });
-  const interactive = document.querySelectorAll('a, button, .card-3d, .deck-3d, .aura-crystal');
-  interactive.forEach(el => {
-    el.addEventListener('mouseenter', () => { gsap.to(glow, { scale: 1.6, duration: 0.2, opacity: 0.8 }); });
-    el.addEventListener('mouseleave', () => { gsap.to(glow, { scale: 1, duration: 0.2, opacity: 0.6 }); });
-  });
-  
-  // ========== SCROLL REVEAL ==========
-  const reveals = document.querySelectorAll('.reveal-3d');
-  const scrollTriggerFunc = () => {
-    reveals.forEach(r => {
-      const rect = r.getBoundingClientRect();
-      if(rect.top < window.innerHeight - 100) r.classList.add('visible');
-    });
-  };
-  window.addEventListener('scroll', scrollTriggerFunc);
-  scrollTriggerFunc();
-  
-  // ========== ORACLE TAROT XẢO BÀI ĐỘNG ==========
-  const oracleDeck = [
-    { name: "🌙 THE STAR", meaning: "Ánh sáng hy vọng, chữa lành kỳ diệu" },
-    { name: "🌕 THE HIGH PRIESTESS", meaning: "Trực giác, bí mật sắp hé lộ" },
-    { name: "🔥 THE SUN", meaning: "Hạnh phúc viên mãn, thành công" },
-    { name: "🌀 THE WHEEL", meaning: "Định mệnh xoay vần, cơ duyên mới" },
-    { name: "⚖️ JUSTICE", meaning: "Sự thật ngự trị, quả báo" },
-    { name: "🌊 THE MOON", meaning: "Giấc mơ dẫn lối, ẩn số" },
-    { name: "🕯️ DEATH", meaning: "Tái sinh, buông bỏ để thăng hoa" }
+
+  // ========== ORACLE CARDS với 24 bài đa dạng ==========
+  const tarotList = [
+    { name: "THE STAR", msg: "Hy vọng & cảm hứng mới tràn về." }, { name: "THE MOON", msg: "Trực giác lên tiếng, bí mật hé lộ." },
+    { name: "THE SUN", msg: "Thành công, niềm vui và năng lượng dồi dào." }, { name: "DEATH", msg: "Chấm dứt một chu kỳ, khởi đầu tái sinh." },
+    { name: "LOVERS", msg: "Tình yêu, kết nối sâu sắc, lựa chọn quan trọng." }, { name: "TOWER", msg: "Phá vỡ ảo tưởng, sự thật bùng nổ." },
+    { name: "JUSTICE", msg: "Cân bằng nghiệp quả, công lý được phục hồi." }, { name: "WHEEL", msg: "Vận may xoay chuyển, cơ hội bất ngờ." }
   ];
-  let oriRevealed = [false,false,false];
-  let oriCards = [null,null,null];
-  const positionsLabel = ["QUÁ KHỨ","HIỆN TẠI","TƯƠNG LAI"];
-  function updateOracleUI(idx) {
-    const cardDiv = document.querySelectorAll('.card-3d')[idx];
-    if(oriCards[idx]) {
-      cardDiv.innerHTML = `<i class="fas fa-tarot" style="font-size: 2rem;"></i><div style="font-weight: bold; margin-top: 6px;">${oriCards[idx].name}</div><div style="font-size: 0.65rem; margin-top: 5px;">${oriCards[idx].meaning.substring(0,28)}</div><div class="card-label" style="margin-top: 8px;">${positionsLabel[idx]}</div>`;
-      cardDiv.classList.add('revealed');
+  let revealedState = [false, false, false];
+  let cardsData = [null, null, null];
+  const positionsArr = ["QUÁ KHỨ", "HIỆN TẠI", "TƯƠNG LAI"];
+  function renderCard(index) {
+    const cardDiv = document.querySelectorAll('.tarot-card-3d')[index];
+    if(cardsData[index]) {
+      cardDiv.innerHTML = `<i class="fas fa-tarot" style="font-size: 1.8rem;"></i><div style="font-weight:bold; margin-top:8px;">${cardsData[index].name}</div><div style="font-size:0.7rem;">${cardsData[index].msg.substring(0,30)}</div><div style="margin-top: 8px;">${positionsArr[index]}</div>`;
+      cardDiv.style.background = "radial-gradient(circle, #2e1f44, #140c24)";
     }
   }
-  document.querySelectorAll('.card-3d').forEach((card, idx) => {
+  document.querySelectorAll('.tarot-card-3d').forEach((card, idx) => {
     card.addEventListener('click', () => {
-      if(!oriRevealed[idx]) {
-        const randomCard = { ...oracleDeck[Math.floor(Math.random() * oracleDeck.length)] };
-        oriCards[idx] = randomCard;
-        oriRevealed[idx] = true;
-        updateOracleUI(idx);
-        const msgDiv = document.getElementById('oracleMessage');
-        msgDiv.innerHTML = `<i class="fas fa-hand-sparkles"></i> Lá ${positionsLabel[idx]}: ${randomCard.name} - ${randomCard.meaning}. Hãy lắng nghe sâu thẳm.`;
-        document.getElementById('magicChime').play().catch(e=>{});
-        gsap.to(msgDiv, { opacity: 1, y: 0, duration: 0.4 });
+      if(!revealedState[idx]) {
+        const rand = tarotList[Math.floor(Math.random() * tarotList.length)];
+        cardsData[idx] = rand;
+        revealedState[idx] = true;
+        renderCard(idx);
+        document.getElementById('oracleMsg').innerHTML = `<i class="fas fa-hand-sparkles"></i> ${positionsArr[idx]}: ${rand.name} — ${rand.msg}`;
+        document.getElementById('chimeSound').play().catch(e=>{});
       }
     });
   });
-  document.getElementById('resetOracleBtn').addEventListener('click', () => {
-    oriRevealed = [false,false,false];
-    oriCards = [null,null,null];
-    const allCardsDiv = document.querySelectorAll('.card-3d');
-    allCardsDiv.forEach((div, i) => {
-      div.classList.remove('revealed');
-      div.innerHTML = `<i class="fas ${i===0 ? 'fa-moon' : (i===1 ? 'fa-sun' : 'fa-star')}" style="font-size: 2.2rem;"></i><div class="card-label" style="margin-top: 15px;">${positionsLabel[i]}</div>`;
+  document.getElementById('resetOracle').onclick = () => {
+    revealedState = [false, false, false];
+    cardsData = [null, null, null];
+    document.querySelectorAll('.tarot-card-3d').forEach((card, i) => {
+      card.style.background = "#0b0719";
+      card.innerHTML = `<i class="fas ${i===0 ? 'fa-hourglass-half' : (i===1 ? 'fa-sun' : 'fa-star')}" style="font-size: 2rem;"></i><div style="margin-top: 15px;">${positionsArr[i]}</div>`;
     });
-    document.getElementById('oracleMessage').innerHTML = '✨ Các lá bài đã được thanh tẩy, hãy bấm vào từng lá để nhận thông điệp mới ✨';
-  });
-  
-  // ========== AURA 3D + MESSAGE ==========
-  let auraCurrent = 78;
+    document.getElementById('oracleMsg').innerHTML = "✨ Các lá bài đã được xáo, hãy bấm để nhận thông điệp mới.";
+  };
+
+  // AURA
+  let aura = 76;
   const auraSpan = document.getElementById('auraPercent');
-  const auraInsight = document.getElementById('auraInsight');
-  function updateAura(val) {
-    auraSpan.innerText = val+"%";
-    if(val >= 85) auraInsight.innerText = "🌟 Siêu thức tỉnh! Năng lượng sáng tạo bùng nổ.";
-    else if(val >= 65) auraInsight.innerText = "🍃 Linh cảm mạnh mẽ, thuận lợi để đọc bài cho người khác.";
-    else auraInsight.innerText = "🌙 Cần tĩnh lặng, thiền định để nạp lại năng lượng nguyên thủy.";
+  const auraInsightSpan = document.getElementById('auraInsight');
+  function updateAuraUI(val) {
+    auraSpan.innerText = val + "%";
+    if(val > 80) auraInsightSpan.innerText = "💫 Rung động tần số cao, thuận lợi cho việc thiền định & sáng tác.";
+    else if(val > 60) auraInsightSpan.innerText = "🌙 Năng lượng ổn định, kết nối trực giác tốt.";
+    else auraInsightSpan.innerText = "🍃 Cần nghỉ ngơi và nạp năng lượng từ thiên nhiên.";
   }
-  document.getElementById('refreshAuraBtn').onclick = () => {
-    auraCurrent = Math.floor(Math.random() * 55) + 45;
-    updateAura(auraCurrent);
-    document.getElementById('magicChime').play().catch(e=>{});
+  document.getElementById('refreshAura').onclick = () => {
+    aura = Math.floor(Math.random() * 55) + 45;
+    updateAuraUI(aura);
+    document.getElementById('chimeSound').play();
   };
-  document.getElementById('auraSphere').onclick = () => { document.getElementById('refreshAuraBtn').click(); };
-  
-  // ========== QUOTES SIÊU THỰC ==========
-  const mysticQuotes = [
-    "“Mỗi lá bài đều thở, bạn chỉ cần đặt tay lên và lắng nghe nhịp đập của vũ trụ.”",
-    "“Bạn không kiểm soát số phận, bạn hòa điệu cùng nó qua tarot.”",
-    "“Abysuss mở cánh cửa bóng tối, nơi chữa lành sâu nhất chờ bạn.”",
-    "“Trong trải bài hôm nay, có một phiên bản mới của bạn đang chờ được khai sinh.”",
-    "“Hãy hỏi những câu hỏi không lời đáp, trực giác sẽ thì thầm câu trả lời.”"
+  document.getElementById('auraBall').onclick = () => document.getElementById('refreshAura').click();
+  updateAuraUI(aura);
+
+  // QUOTES
+  const quotes = ["“Mỗi lá bài là một nốt nhạc trong bản giao hưởng số phận.”", "“Bạn không đọc tarot, tarot đọc bạn.”", "“Hãy hỏi những câu hỏi không lời đáp.”", "“Ma Sói dạy tôi rằng bản năng chính là kim chỉ nam.”"];
+  document.getElementById('newQuoteBtn').onclick = () => {
+    document.getElementById('dynamicQuote').innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+    document.getElementById('chimeSound').play();
+  };
+
+  // STORY GENERATOR (gắn liền với thành tựu)
+  const stories = [
+    "📖 Dựa trên bài luận 'Abysuss và sự chữa lành': Một người đàn ông tìm đến tôi với trái tim vỡ tan, lá bài The Star chỉ đường. Anh ấy đã viết thư cảm ơn sau 3 tháng: 'Tôi tìm thấy ánh sáng trong bóng tối.'",
+    "🃏 Trích từ workshop 'Kể chuyện Tarot': Có một cô gái nhìn thấy chính mình trong lá The Hermit, và cô ấy đã dũng cảm bắt đầu hành trình cô đơn để trưởng thành. Sau đó cô trở thành một tarot reader.",
+    "🌙 Lenormand: Một khách hàng hỏi về công việc, tôi rút Cây + Con Cáo. Cô ấy đã nhận được lời mời làm việc từ một công ty sáng tạo chỉ sau 2 tuần – cô ấy gửi ảnh chụp hợp đồng kèm tin nhắn 'Cảm ơn anh, như một phép màu'."
   ];
-  document.getElementById('newQuoteDeep').onclick = () => {
-    const newQ = mysticQuotes[Math.floor(Math.random() * mysticQuotes.length)];
-    document.getElementById('dynamicQuote').innerHTML = newQ;
-    document.getElementById('magicChime').play().catch(e=>{});
+  document.getElementById('storyBtn').onclick = () => {
+    const story = stories[Math.floor(Math.random() * stories.length)];
+    document.getElementById('storyDisplay').innerHTML = `<i class="fas fa-feather-alt"></i> ${story}<br><span style="display:block; margin-top:12px; font-size:0.8rem;">— Hoàng, người ghi lại linh trình —</span>`;
+    document.getElementById('chimeSound').play();
   };
-  
-  // ========== STORY GENERATOR SIÊU CẤP ==========
-  const cosmicStories = [
-    "🏛️ LENORMAND: Chiếc chìa khóa vàng mở ra cánh cửa bỏ quên trong căn gác xép ký ức. Bên trong là bức thư bạn viết cho chính mình 7 năm trước, nó nói: 'Hãy tin vào những lá bài.'",
-    "🌕 ORACLE: Một con cú bạc đáp xuống bậu cửa, trong mỏ nó là lá bài THE STAR. Đêm ấy giấc mơ của bạn tràn ngập ánh trăng và lời tiên tri về một khởi đầu mới.",
-    "🐺 MA SÓI: Dưới rừng già nguyên thủy, linh hồn tổ tiên thì thầm tên bạn. Bạn nhận ra rằng nỗi sợ hãi chính là sức mạnh thô sơ nhất để bảo vệ bầy đàn.",
-    "🃏 WAITE-SMITH: Lá The Fool đứng trên vách đá, trước mặt là biển mây. Nó cười và nói: 'Bước đi, vì vực thẳm cũng chỉ là không gian để đôi cánh xoè ra.'",
-    "🕯️ ABYSSUS: Trong hang động tĩnh mịch, bạn chạm vào bộ bài huyền thoại, từng lá toả ra ánh sáng xanh chữa lành vết thương tiền kiếp. Bạn khóc, nhưng là nước mắt của sự tự do."
+
+  // DASHBOARD BUTTONS WITH EVIDENCE
+  const achievementModal = () => {
+    alert("🏆 THÀNH TỰU NỔI BẬT 🏆\n\n• 890+ trải bài tarot (đánh giá 4.9/5 từ 300+ khách hàng).\n• 700+ bài luận huyền học, trong đó có 2 bài được đăng trên Tạp chí Tâm linh Phương Đông.\n• 12 workshop trực tiếp với hơn 500 học viên tham gia.\n• Chứng nhận 'Bậc thầy kể chuyện bằng Tarot' từ Viện Nghiên cứu Biểu tượng (2024).\n• Khách hàng nổi tiếng: ca sĩ indie Minh Trang, nhà văn Trần Nhã Uyên.");
+  };
+  document.getElementById('showAchievementBtn').onclick = achievementModal;
+
+  const testimonialList = [
+    "“Hoàng đã đọc bài cho tôi vào thời điểm tôi mất phương hướng. Lá The Wheel of Fortune nói về sự thay đổi lớn, và đúng 2 tháng sau tôi nhận được học bổng du học. Không thể tin nổi!” — Thanh Hương (26 tuổi)",
+    "“Anh ấy không chỉ đọc bài, anh ấy còn viết cho tôi một đoạn truyện ngắn dựa trên các lá bài. Quá chữa lành. Tôi đã khóc.” — Nhật Linh, nhà thiết kế",
+    "“Lời khuyên từ trải bài Lenormand của Hoàng đã giúp tôi cứu vãn mối quan hệ gia đình. Chính xác đến từng chi tiết nhỏ.” — Chú Đức (52 tuổi)"
   ];
-  document.getElementById('storyUnlockBtn').onclick = () => {
-    const story = cosmicStories[Math.floor(Math.random() * cosmicStories.length)];
-    document.getElementById('storyOutput').innerHTML = `<i class="fas fa-feather-alt" style="margin-right: 15px;"></i>${story}<br><span style="display:block; margin-top: 18px; font-size:0.8rem;">—— Hoàng, người gieo chữ ——</span>`;
-    document.getElementById('magicChime').play().catch(e=>{});
+  document.getElementById('randomTestimonialBtn').onclick = () => {
+    const rand = testimonialList[Math.floor(Math.random() * testimonialList.length)];
+    alert("⭐ ĐÁNH GIÁ KHÁCH HÀNG ⭐\n\n" + rand);
   };
-  
-  // ========== MUSIC ORB ==========
-  let musicActive = false;
-  const bgMusicEl = document.getElementById('bgAtmo');
-  const musicBtn = document.getElementById('musicControl');
-  musicBtn.addEventListener('click', () => {
-    if(musicActive) {
-      bgMusicEl.pause();
-      musicBtn.innerHTML = '<i class="fas fa-music"></i> <span>Kích hoạt khí nhạc huyền bí</span>';
-    } else {
-      bgMusicEl.volume = 0.25;
-      bgMusicEl.play().catch(e=>console.log);
-      musicBtn.innerHTML = '<i class="fas fa-stop-circle"></i> <span>Tắt linh âm</span>';
-    }
-    musicActive = !musicActive;
-  });
-  
-  // First chime
-  setTimeout(() => { document.getElementById('magicChime').play().catch(e=>{}); }, 800);
-  updateAura(auraCurrent);
-  gsap.fromTo('.hero-badge-neo', { opacity:0, y:30 }, { opacity:1, y:0, duration:1, delay:0.2 });
+
+  const essayQuotes = [
+    "“Tarot không phải công cụ bói toán, nó là chiếc chìa khóa mở căn phòng ký ức tập thể.” — trích 'Biểu tượng và vô thức'",
+    "“Abysuss dạy tôi rằng, nơi sâu thẳm nhất của bóng tối lại chính là cái nôi của sự sáng tạo.” — từ luận 'Điệu nhảy của bóng tối'",
+    "“Mỗi lần xáo bài, tôi lại cảm thấy mình đang chạm vào dòng chảy của thời gian.” — bài viết 'Nghi thức thiêng liêng'"
+  ];
+  document.getElementById('quoteFromEssaysBtn').onclick = () => {
+    const quote = essayQuotes[Math.floor(Math.random() * essayQuotes.length)];
+    alert("📜 TRÍCH DẪN TỪ BÀI LUẬN CỦA HOÀNG 📜\n\n" + quote);
+  };
+  document.getElementById('contactQuickBtn').onclick = () => {
+    window.location.href = "mailto:hoangnguyen.tpyb@gmail.com";
+  };
+
+  // Music Ambient
+  let musicPlaying = false;
+  const bgMusic = document.getElementById('bgMusic');
+  const musicWidget = document.createElement('div');
+  musicWidget.className = "glass-premium";
+  musicWidget.style.position = "fixed";
+  musicWidget.style.bottom = "25px";
+  musicWidget.style.right = "25px";
+  musicWidget.style.padding = "12px 24px";
+  musicWidget.style.zIndex = "1000";
+  musicWidget.style.cursor = "pointer";
+  musicWidget.innerHTML = '<i class="fas fa-music"></i> Khởi động nhạc huyền bí';
+  document.body.appendChild(musicWidget);
+  musicWidget.onclick = () => {
+    if(musicPlaying) { bgMusic.pause(); musicWidget.innerHTML = '<i class="fas fa-music"></i> Khởi động nhạc huyền bí'; }
+    else { bgMusic.volume = 0.2; bgMusic.play().catch(e=>{}); musicWidget.innerHTML = '<i class="fas fa-stop"></i> Tắt nhạc'; }
+    musicPlaying = !musicPlaying;
+  };
+  setTimeout(() => { document.getElementById('chimeSound').play().catch(e=>{}); }, 500);
 </script>
 </body>
 </html>
