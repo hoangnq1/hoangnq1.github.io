@@ -4,11 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Hoàng | Tarot Reader & Writer — Nơi những lá bài thì thầm</title>
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- AOS Library -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -17,85 +14,43 @@
     }
 
     body {
-      background: #0a080f;
+      background: #0a0812;
       font-family: 'Montserrat', sans-serif;
       color: #efebe9;
       overflow-x: hidden;
-      position: relative;
     }
 
-    /* Animated gradient background */
-    .bg-gradient {
+    /* Animated cosmic background */
+    .cosmic-bg {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 20% 30%, #1a1025, #0a0612);
-      z-index: -2;
+      background: radial-gradient(ellipse at 30% 40%, #1a1228, #06040a);
+      z-index: -3;
     }
-    .bg-gradient::before {
-      content: '';
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      top: -50%;
-      left: -50%;
-      background: radial-gradient(circle, rgba(120, 70, 140, 0.15) 0%, transparent 70%);
-      animation: rotateBg 40s linear infinite;
-    }
-    @keyframes rotateBg {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Particle canvas */
-    #particleCanvas {
+    .stars-layer {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      background-image: 
+        radial-gradient(2px 2px at 10% 20%, white, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 45% 70%, rgba(255,215,150,0.8), rgba(0,0,0,0)),
+        radial-gradient(3px 3px at 80% 35%, rgba(200,170,140,0.6), rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 25% 85%, white, rgba(0,0,0,0));
+      background-size: 200px 200px, 300px 300px, 400px 400px, 250px 250px;
+      background-repeat: repeat;
+      opacity: 0.6;
       pointer-events: none;
-      z-index: -1;
+      z-index: -2;
+      animation: starMove 60s linear infinite;
     }
-
-    /* Scroll reveal animation */
-    .scroll-reveal {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    }
-    .scroll-reveal.revealed {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Text shine effect */
-    .shine-text {
-      background: linear-gradient(135deg, #f3e7c9 0%, #e8cca6 40%, #c9a87b 70%, #f3e7c9 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: shine 8s linear infinite;
-    }
-    @keyframes shine {
-      0% { background-position: 0% center; }
-      100% { background-position: 200% center; }
-    }
-
-    /* Glitch effect for title */
-    .glitch {
-      position: relative;
-      animation: glitch-skew 3s infinite;
-    }
-    @keyframes glitch-skew {
-      0%, 100% { transform: skew(0deg); }
-      95% { transform: skew(0deg); }
-      96% { transform: skew(5deg); }
-      97% { transform: skew(-3deg); }
-      98% { transform: skew(2deg); }
+    @keyframes starMove {
+      0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+      100% { background-position: 200px 200px, 300px 300px, 400px 400px, 250px 250px; }
     }
 
     .container {
@@ -106,33 +61,31 @@
       z-index: 5;
     }
 
-    /* Glassmorphism nâng cấp */
-    .glass {
-      background: rgba(18, 14, 28, 0.6);
-      backdrop-filter: blur(16px);
+    /* Glass morphism */
+    .glass-card {
+      background: rgba(20, 15, 35, 0.55);
+      backdrop-filter: blur(14px);
       border: 1px solid rgba(200, 170, 140, 0.25);
       border-radius: 32px;
-      transition: all 0.5s;
-    }
-    .glass:hover {
-      border-color: rgba(200, 170, 140, 0.6);
-      box-shadow: 0 0 30px rgba(200, 150, 100, 0.15);
+      transition: all 0.4s;
     }
 
     h1, h2, h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
     }
 
     h1 {
-      font-size: 5.5rem;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.02em;
+      font-size: 5rem;
+      background: linear-gradient(135deg, #f3e7c9, #e8cca6, #c9a87b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 40px rgba(200,150,100,0.3);
+      margin-bottom: 1.2rem;
     }
 
     h2 {
-      font-size: 3rem;
+      font-size: 2.8rem;
       margin-bottom: 2rem;
       position: relative;
       display: inline-block;
@@ -141,59 +94,39 @@
       content: '✦';
       margin-right: 15px;
       color: #c9a87b;
-      font-size: 2rem;
-      animation: spin 4s infinite;
+      animation: spinSlow 6s infinite;
     }
-    @keyframes spin {
+    @keyframes spinSlow {
       0%, 100% { transform: rotate(0deg); }
       50% { transform: rotate(180deg); }
     }
 
     .section {
-      padding: 100px 0;
-      position: relative;
+      padding: 90px 0;
+      border-bottom: 1px solid rgba(200, 170, 140, 0.15);
     }
 
-    /* Button ma thuật nâng cấp */
+    /* Premium Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      padding: 14px 38px;
+      padding: 14px 36px;
       border-radius: 60px;
       font-weight: 600;
       font-size: 0.9rem;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
       text-decoration: none;
-      transition: all 0.4s;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
       cursor: pointer;
       border: none;
       position: relative;
       overflow: hidden;
-      z-index: 1;
-    }
-    .btn::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: rgba(255,255,255,0.2);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.6s, height 0.6s;
-      z-index: -1;
-    }
-    .btn:hover::after {
-      width: 300px;
-      height: 300px;
     }
     .btn-primary {
       background: linear-gradient(135deg, #2a1f35, #1a1025);
       border: 1px solid rgba(200, 150, 100, 0.5);
       color: #f0e6d8;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
     }
     .btn-primary:hover {
       transform: translateY(-5px);
@@ -210,49 +143,55 @@
       transform: translateY(-3px);
     }
 
-    /* Hero với animation chữ */
+    /* Hero */
     .hero {
-      min-height: 100vh;
+      min-height: 95vh;
       display: flex;
       align-items: center;
-      position: relative;
     }
-    .hero-content {
-      animation: fadeInUp 1s ease-out;
+    .hero-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 60px;
+      align-items: center;
     }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(50px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .hero-content { flex: 1.2; }
     .hero-badge {
       display: inline-block;
       background: rgba(200, 170, 140, 0.15);
       backdrop-filter: blur(8px);
-      padding: 8px 24px;
+      padding: 6px 20px;
       border-radius: 60px;
       font-size: 0.7rem;
       letter-spacing: 3px;
-      margin-bottom: 30px;
+      margin-bottom: 28px;
       border: 1px solid rgba(200,170,140,0.3);
-      animation: pulse 2s infinite;
+      animation: glowPulse 2s infinite;
     }
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(200,170,140,0.4); }
-      50% { box-shadow: 0 0 0 10px rgba(200,170,140,0); }
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(200,170,140,0.3); }
+      50% { box-shadow: 0 0 0 8px rgba(200,170,140,0); }
     }
     .hero-image {
-      animation: float 5s infinite ease-in-out;
+      flex: 0.9;
+      text-align: center;
+      animation: float 5s infinite ease;
     }
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-25px); }
+      50% { transform: translateY(-20px); }
+    }
+    .hero-image i {
+      font-size: 8rem;
+      color: #e8cca6;
+      filter: drop-shadow(0 0 25px rgba(200,150,100,0.5));
     }
 
-    /* Tarot Cards 3D + hover effect */
+    /* Decks */
     .decks-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 35px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
       perspective: 1000px;
     }
     .deck-card {
@@ -260,322 +199,359 @@
       backdrop-filter: blur(10px);
       border: 1px solid rgba(200,170,140,0.2);
       border-radius: 28px;
-      padding: 35px 20px;
+      padding: 30px 18px;
       text-align: center;
-      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+      transition: all 0.4s;
       cursor: pointer;
     }
     .deck-card:hover {
-      transform: translateY(-15px) rotateY(8deg) scale(1.02);
+      transform: translateY(-12px) rotateY(6deg);
       border-color: #c9a87b;
-      box-shadow: 0 30px 50px -20px rgba(200,150,100,0.4);
+      box-shadow: 0 25px 40px -15px rgba(200,150,100,0.3);
     }
     .deck-icon {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      transition: all 0.4s;
+      font-size: 2.8rem;
+      margin-bottom: 18px;
+      transition: 0.3s;
     }
     .deck-card:hover .deck-icon {
-      transform: scale(1.2);
+      transform: scale(1.15);
       text-shadow: 0 0 20px #e8cca6;
     }
 
-    /* Daily draw - 3D flip */
-    .daily-card {
+    /* 3 Card Tarot Reading */
+    .tarot-spread {
       background: linear-gradient(135deg, rgba(35,25,55,0.8), rgba(20,12,38,0.9));
       backdrop-filter: blur(20px);
       border-radius: 48px;
-      padding: 55px 40px;
+      padding: 50px 40px;
       text-align: center;
-      border: 1px solid rgba(200,170,140,0.3);
-      transition: all 0.5s;
     }
-    .daily-card-btn {
-      background: linear-gradient(135deg, #c9a87b, #a8845a);
-      border: none;
-      padding: 18px 50px;
-      border-radius: 60px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #0a0812;
-      cursor: pointer;
-      transition: all 0.4s;
-      position: relative;
-      overflow: hidden;
-    }
-    .daily-card-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 35px rgba(200,150,100,0.8);
-    }
-    .daily-result {
-      margin-top: 35px;
-      background: rgba(0,0,0,0.5);
-      border-radius: 32px;
-      padding: 30px;
-      display: none;
-      animation: cardReveal 0.6s;
-    }
-    @keyframes cardReveal {
-      from { opacity: 0; transform: rotateX(-30deg); }
-      to { opacity: 1; transform: rotateX(0); }
-    }
-
-    /* Floating elements animation */
-    .floating-element {
-      position: absolute;
-      font-size: 1.5rem;
-      pointer-events: none;
-      animation: floatElement 8s infinite alternate;
-    }
-    @keyframes floatElement {
-      0% { transform: translate(0, 0) rotate(0deg); opacity: 0.3; }
-      100% { transform: translate(30px, -30px) rotate(10deg); opacity: 0.8; }
-    }
-
-    .music-control {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: rgba(25, 18, 40, 0.9);
-      backdrop-filter: blur(20px);
-      border: 1px solid #c9a87b;
-      border-radius: 60px;
-      padding: 14px 32px;
+    .cards-container {
       display: flex;
-      gap: 12px;
-      z-index: 100;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin: 35px 0;
+    }
+    .tarot-card-slot {
+      width: 140px;
+      height: 200px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 16px;
+      border: 2px dashed rgba(200,170,140,0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
       transition: all 0.3s;
-      font-weight: 500;
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 15px;
     }
-    .music-control:hover {
+    .tarot-card-slot.revealed {
+      border: 2px solid #c9a87b;
+      background: rgba(200,170,140,0.15);
+      box-shadow: 0 0 20px rgba(200,150,100,0.3);
+    }
+    .card-name {
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+
+    /* Mood Tracker */
+    .mood-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 25px 0;
+    }
+    .mood-btn {
+      background: rgba(30,22,50,0.6);
+      border: 1px solid rgba(200,170,140,0.3);
+      padding: 12px 24px;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 1rem;
+    }
+    .mood-btn:hover, .mood-btn.active {
       background: #c9a87b;
       color: #0a0812;
       transform: scale(1.05);
     }
 
+    /* Crystal Ball Widget */
+    .crystal-ball {
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, #c9a87b60, #7a5a3e30);
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      animation: crystalGlow 3s infinite alternate;
+      cursor: pointer;
+    }
+    @keyframes crystalGlow {
+      0% { box-shadow: 0 0 20px #c9a87b; transform: scale(1); }
+      100% { box-shadow: 0 0 50px #e8cca6; transform: scale(1.05); }
+    }
+
+    /* Scroll reveal */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .music-control {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: rgba(25, 18, 40, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid #c9a87b;
+      border-radius: 60px;
+      padding: 12px 28px;
+      display: flex;
+      gap: 12px;
+      z-index: 100;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
     @media (max-width: 850px) {
-      h1 { font-size: 2.8rem; }
+      h1 { font-size: 2.5rem; }
       .container { padding: 0 24px; }
       .hero-grid { flex-direction: column; text-align: center; }
+      .tarot-card-slot { width: 100px; height: 150px; font-size: 0.7rem; }
     }
   </style>
 </head>
 <body>
-<div class="bg-gradient"></div>
-<canvas id="particleCanvas"></canvas>
-
-<!-- Floating mystical elements -->
-<div class="floating-element" style="top: 15%; left: 5%;"><i class="fas fa-moon"></i></div>
-<div class="floating-element" style="bottom: 20%; right: 3%; animation-duration: 12s;"><i class="fas fa-feather-alt"></i></div>
-<div class="floating-element" style="top: 40%; right: 8%; animation-duration: 10s;"><i class="fas fa-star"></i></div>
+<div class="cosmic-bg"></div>
+<div class="stars-layer"></div>
 
 <div class="container">
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="hero">
-    <div class="hero-grid" style="display: flex; flex-wrap: wrap; gap: 60px; align-items: center;">
-      <div class="hero-content" style="flex: 1.2;">
+    <div class="hero-grid">
+      <div class="hero-content">
         <span class="hero-badge"><i class="fas fa-tarot"></i> TAROT READER & WRITER</span>
-        <h1 class="glitch shine-text">Hoàng<br>Người kể chuyện<br>bằng lá bài</h1>
-        <p class="hero-tagline" style="font-size: 1.2rem; color: #cbc3b0; margin: 1.5rem 0 2rem; font-style: italic;">“Giữa những vì sao và lời thì thầm, tôi đọc thấu những câu chuyện chưa kể — 2 năm linh trình cùng 6 bộ bài huyền bí.”</p>
-        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-          <a href="#dailyDraw" class="btn btn-primary"><i class="fas fa-hand-sparkles"></i> Bốc bài hôm nay</a>
-          <a href="#contact" class="btn btn-outline"><i class="fas fa-pen-fancy"></i> Kết nối cùng tôi</a>
+        <h1>Hoàng<br>Người kể chuyện<br>bằng lá bài</h1>
+        <p style="font-size: 1.2rem; color: #cbc3b0; margin: 1.5rem 0 2rem; font-style: italic;">“Giữa những vì sao và lời thì thầm — 2 năm linh trình cùng Lenormand, Ma Sói, Oracle, Waite-Smith, Bài Tây, Abysuss”</p>
+        <div style="display: flex; gap: 18px; flex-wrap: wrap;">
+          <a href="#tarotReading" class="btn btn-primary"><i class="fas fa-hand-sparkles"></i> Bói bài 3 lá</a>
+          <a href="#contact" class="btn btn-outline"><i class="fas fa-pen-fancy"></i> Kết nối</a>
         </div>
       </div>
-      <div class="hero-image" style="flex: 0.9; text-align: center;">
-        <i class="fas fa-crystal-ball" style="font-size: 8rem; color: #e8cca6; filter: drop-shadow(0 0 30px rgba(200,150,100,0.5));"></i>
-        <div style="margin-top: 20px; font-family: 'Cormorant Garamond'; font-size: 1rem;">✦ Trực giác & Văn chương ✦</div>
+      <div class="hero-image">
+        <i class="fas fa-crystal-ball"></i>
+        <div style="margin-top: 15px;">✦ Trực giác & Văn chương ✦</div>
       </div>
     </div>
   </section>
 
-  <!-- About với text animation -->
+  <!-- About -->
   <div class="section scroll-reveal" id="about">
-    <h2 class="shine-text">Hành trình huyền bí</h2>
-    <div class="story-text" style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
-      Tôi là <strong style="color:#e8cca6;">Hoàng</strong> — một Tarot reader với hơn <strong>2 năm thực hành chuyên sâu</strong> và một writer đam mê những câu chuyện siêu hình. Tôi thành thạo <strong>Lenormand, Ma Sói, Oracle, Waite-Smith, Bài Tây, Abysuss</strong> — sáu cánh cửa dẫn vào thế giới biểu tượng và tiềm thức.
-    </div>
-    <div class="story-text" style="font-size: 1.05rem; color: #cbc3b0;">
-      Trong hai năm qua, tôi đã thực hiện hơn 500 trải bài, dẫn dắt nhiều workshop và viết hơn 80 bài luận về Tarot, chiêm tinh và chữa lành. Với tôi, mỗi lá bài là một nhân vật, mỗi trải bài là một câu chuyện thiêng liêng.
-    </div>
-    <div style="margin-top: 35px; display: inline-block; background: rgba(200,170,140,0.15); padding: 12px 32px; border-radius: 60px; backdrop-filter: blur(4px);">
-      <i class="fas fa-star-of-life"></i> 2 năm chuyên sâu · 500+ trải bài & bài viết
-    </div>
+    <h2>Hành trình huyền bí</h2>
+    <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.2rem;">Tôi là <strong style="color:#e8cca6;">Hoàng</strong> — Tarot reader với <strong>2 năm kinh nghiệm</strong> chuyên sâu, thành thạo 6 bộ bài: Lenormand, Ma Sói, Oracle, Waite-Smith, Bài Tây, Abysuss.</p>
+    <p style="font-size: 1rem; color: #cbc3b0;">Hơn 500 trải bài, 80 bài viết về Tarot & chiêm tinh. Mỗi lá bài là một câu chuyện, mỗi phiên đọc là sự đồng hành thiêng liêng.</p>
+    <div style="margin-top: 30px; display: inline-block; background: rgba(200,170,140,0.15); padding: 10px 28px; border-radius: 60px;"><i class="fas fa-star"></i> 2 năm · 500+ trải nghiệm</div>
   </div>
 
-  <!-- Decks -->
+  <!-- Bộ bài -->
   <div class="section scroll-reveal">
-    <h2 class="shine-text">🃏 Những bộ bài linh thiêng</h2>
+    <h2>🃏 Bộ bài linh thiêng</h2>
     <div class="decks-grid">
       <div class="deck-card"><div class="deck-icon"><i class="fas fa-tree"></i></div><h3>Lenormand</h3><p>Trực diện, kết nối sự kiện</p></div>
       <div class="deck-card"><div class="deck-icon"><i class="fas fa-paw"></i></div><h3>Ma Sói</h3><p>Bản năng nguyên thủy</p></div>
-      <div class="deck-card"><div class="deck-icon"><i class="fas fa-gem"></i></div><h3>Oracle</h3><p>Thông điệp từ linh hồn</p></div>
+      <div class="deck-card"><div class="deck-icon"><i class="fas fa-gem"></i></div><h3>Oracle</h3><p>Thông điệp linh hồn</p></div>
       <div class="deck-card"><div class="deck-icon"><i class="fas fa-sun"></i></div><h3>Waite-Smith</h3><p>Kinh điển huyền bí</p></div>
       <div class="deck-card"><div class="deck-icon"><i class="fas fa-heart"></i></div><h3>Bài Tây</h3><p>Ẩn dụ đời thường</p></div>
       <div class="deck-card"><div class="deck-icon"><i class="fas fa-skull"></i></div><h3>Abysuss</h3><p>Chiều sâu chữa lành</p></div>
     </div>
   </div>
 
-  <!-- Daily Draw -->
-  <div class="section scroll-reveal" id="dailyDraw">
-    <h2 class="shine-text">🔮 Lá bài hôm nay</h2>
-    <div class="daily-card">
-      <i class="fas fa-hand-sparkles" style="font-size: 3.5rem; color:#e8cca6; animation: pulse 2s infinite;"></i>
-      <p style="margin: 25px 0; font-size: 1.1rem;">Chạm vào phép thuật — nhận thông điệp từ vũ trụ</p>
-      <button class="daily-card-btn" id="drawCardBtn"><i class="fas fa-magic"></i> Rút bài ngẫu nhiên</button>
-      <div id="dailyResult" class="daily-result"></div>
+  <!-- 3-Card Tarot Reading - CHỨC NĂNG MỚI -->
+  <div class="section scroll-reveal" id="tarotReading">
+    <h2>🔮 Trải bài 3 lá hôm nay</h2>
+    <div class="tarot-spread">
+      <i class="fas fa-hand-sparkles" style="font-size: 2.5rem; color:#e8cca6;"></i>
+      <p style="margin: 15px 0;">Bấm vào từng lá bài để nhận thông điệp từ quá khứ - hiện tại - tương lai</p>
+      <div class="cards-container" id="tarotCardsContainer">
+        <div class="tarot-card-slot" data-position="0" id="card0"><i class="fas fa-question"></i><div class="card-name">???</div></div>
+        <div class="tarot-card-slot" data-position="1" id="card1"><i class="fas fa-question"></i><div class="card-name">???</div></div>
+        <div class="tarot-card-slot" data-position="2" id="card2"><i class="fas fa-question"></i><div class="card-name">???</div></div>
+      </div>
+      <button id="resetTarotBtn" class="btn btn-outline" style="padding: 10px 28px;"><i class="fas fa-sync-alt"></i> Xáo bài mới</button>
     </div>
   </div>
 
-  <!-- Energy & Countdown -->
+  <!-- Mood Tracker + Crystal Ball -->
   <div class="section scroll-reveal">
-    <h2 class="shine-text">⚡ Năng lượng & Sự kiện</h2>
-    <div style="display: flex; flex-wrap: wrap; gap: 40px;">
-      <div class="glass" style="flex:1; padding: 40px; text-align: center;">
-        <div style="width: 100px; height: 100px; background: radial-gradient(circle, #c9a87b, #7a5a3e); border-radius: 50%; margin: 0 auto 20px; animation: pulse 2s infinite;"></div>
-        <div id="energyLevel" style="font-size: 2.8rem; font-weight: bold; margin: 15px 0;">78%</div>
-        <button id="refreshEnergy" style="background: none; border: 1px solid #c9a87b; border-radius: 40px; padding: 10px 28px; color:#e8cca6; cursor:pointer;">Cập nhật</button>
+    <h2>🌙 Cảm xúc hôm nay</h2>
+    <div class="glass-card" style="padding: 40px; text-align: center;">
+      <div class="crystal-ball" id="crystalBall"></div>
+      <p id="crystalMessage" style="margin-bottom: 25px;">Chạm vào quả cầu pha lê để nhận lời khuyên</p>
+      <div class="mood-buttons">
+        <button class="mood-btn" data-mood="bình yên">🧘 Bình yên</button>
+        <button class="mood-btn" data-mood="tò mò">🔮 Tò mò</button>
+        <button class="mood-btn" data-mood="đầy năng lượng">⚡ Năng lượng</button>
+        <button class="mood-btn" data-mood="cần chữa lành">🍃 Cần chữa lành</button>
       </div>
-      <div class="glass" style="flex:1; padding: 40px; text-align: center;">
-        <i class="fas fa-moon" style="font-size: 3rem; color:#e8cca6; animation: spin 4s infinite;"></i>
-        <h3 style="margin: 20px 0;">Đêm trăng tròn huyền bí</h3>
-        <div class="countdown" style="display: flex; gap: 15px; justify-content: center;">
-          <span id="days" style="background:rgba(0,0,0,0.5); padding:12px 20px; border-radius:20px;">00</span>
-          <span id="hours" style="background:rgba(0,0,0,0.5); padding:12px 20px; border-radius:20px;">00</span>
-          <span id="mins" style="background:rgba(0,0,0,0.5); padding:12px 20px; border-radius:20px;">00</span>
-          <span id="secs" style="background:rgba(0,0,0,0.5); padding:12px 20px; border-radius:20px;">00</span>
-        </div>
-        <p>✨ Đọc bài tập thể miễn phí ✨</p>
-      </div>
+      <p id="moodResponse" style="margin-top: 25px; font-style: italic; color: #e8cca6;"></p>
+    </div>
+  </div>
+
+  <!-- Random Tarot Story - CHỨC NĂNG MỚI -->
+  <div class="section scroll-reveal">
+    <h2>📖 Câu chuyện từ lá bài</h2>
+    <div class="glass-card" style="padding: 45px; text-align: center;">
+      <i class="fas fa-book-open" style="font-size: 2rem; color:#c9a87b;"></i>
+      <button id="randomStoryBtn" class="btn btn-primary" style="margin: 25px 0;"><i class="fas fa-magic"></i> Nhận câu chuyện Tarot</button>
+      <div id="storyResult" style="background: rgba(0,0,0,0.3); border-radius: 24px; padding: 25px; min-height: 120px;"></div>
     </div>
   </div>
 
   <!-- Contact -->
   <div class="section scroll-reveal" id="contact">
-    <h2 class="shine-text">🌙 Kết nối huyền diệu</h2>
-    <div style="text-align: center; margin-bottom: 40px;">Đặt lịch đọc bài 1-1 hoặc nhận những bài viết chạm đến tâm hồn.</div>
-    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-      <a href="#" class="contact-link" style="background:rgba(30,22,45,0.7); backdrop-filter:blur(8px); padding:14px 32px; border-radius:60px; text-decoration:none; color:#e8dccc; transition:0.3s;"><i class="fab fa-instagram"></i> @hoang.tarot.writer</a>
-      <a href="#" class="contact-link" style="background:rgba(30,22,45,0.7); backdrop-filter:blur(8px); padding:14px 32px; border-radius:60px; text-decoration:none; color:#e8dccc; transition:0.3s;"><i class="fab fa-facebook"></i> Hoàng Tarot & Writer</a>
-      <a href="#" class="contact-link" style="background:rgba(30,22,45,0.7); backdrop-filter:blur(8px); padding:14px 32px; border-radius:60px; text-decoration:none; color:#e8dccc; transition:0.3s;"><i class="fas fa-envelope"></i> hoang.mystic@tarot.com</a>
+    <h2>🌙 Kết nối huyền diệu</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 30px;">
+      <a href="#" class="contact-link" style="background:rgba(30,22,45,0.7); backdrop-filter:blur(8px); padding:14px 32px; border-radius:60px; text-decoration:none; color:#e8dccc;"><i class="fab fa-instagram"></i> @hoang.tarot.writer</a>
+      <a href="#" class="contact-link" style="background:rgba(30,22,45,0.7); backdrop-filter:blur(8px); padding:14px 32px; border-radius:60px; text-decoration:none; color:#e8dccc;"><i class="fab fa-facebook"></i> Hoàng Tarot & Writer</a>
+      <a href="#" class="contact-link" style="background:rgba(30,22,45,0.7); backdrop-filter:blur(8px); padding:14px 32px; border-radius:60px; text-decoration:none; color:#e8dccc;"><i class="fas fa-envelope"></i> hoang.mystic@tarot.com</a>
     </div>
   </div>
 </div>
 
-<footer style="text-align: center; padding: 50px; border-top: 1px solid rgba(200,170,140,0.2);">
+<footer style="text-align: center; padding: 40px; border-top: 1px solid rgba(200,170,140,0.15);">
   <p>© 2025 Hoàng — Tarot Reader & Writer. Lenormand · Ma Sói · Oracle · Waite-Smith · Bài Tây · Abysuss</p>
-  <p style="margin-top: 15px;"><i class="fas fa-feather-alt"></i> Kể chuyện bằng lá bài, chạm vào tâm thức bằng con chữ</p>
 </footer>
 
 <div class="music-control" id="musicToggle">
-  <i class="fas fa-music"></i> <span id="musicText">Nhạc thiền Tarot</span>
+  <i class="fas fa-music"></i> <span id="musicText">Nhạc nền Tarot</span>
 </div>
-<audio id="bgMusic" loop preload="none">
-  <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_c579faa280.mp3?filename=meditation-138391.mp3" type="audio/mpeg">
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/02/22/audio_dde031587b.mp3?filename=calm-meditation-108401.mp3" type="audio/mpeg">
+</audio>
+<audio id="chimeSound" preload="auto">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c8f0f7b2.mp3?filename=meditation-bell-60583.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  // Particle System - Hiệu ứng bụi sao
-  const canvas = document.getElementById('particleCanvas');
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  function createParticles() {
-    for(let i = 0; i < 150; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 2 + 0.5,
-        alpha: Math.random() * 0.5 + 0.2,
-        speedX: (Math.random() - 0.5) * 0.3,
-        speedY: (Math.random() - 0.5) * 0.3
-      });
-    }
-  }
-  function drawParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(200, 170, 140, ${p.alpha})`;
-      ctx.fill();
-      p.x += p.speedX;
-      p.y += p.speedY;
-      if(p.x < 0) p.x = canvas.width;
-      if(p.x > canvas.width) p.x = 0;
-      if(p.y < 0) p.y = canvas.height;
-      if(p.y > canvas.height) p.y = 0;
-    });
-    requestAnimationFrame(drawParticles);
-  }
-  resizeCanvas();
-  createParticles();
-  drawParticles();
-  window.addEventListener('resize', () => { resizeCanvas(); particles = []; createParticles(); });
-
   // Scroll reveal
-  const revealElements = document.querySelectorAll('.scroll-reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-      }
-    });
+  const reveals = document.querySelectorAll('.scroll-reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); });
   }, { threshold: 0.15 });
-  revealElements.forEach(el => observer.observe(el));
+  reveals.forEach(r => obs.observe(r));
 
-  // Daily draw
-  const msgs = ["✨ THE STAR — Hy vọng, cảm hứng mới đang đến với bạn", "🌙 THE MOON — Lắng nghe trực giác, bí ẩn hé lộ", "☀️ THE SUN — Niềm vui, thành công rực rỡ", "⚖️ JUSTICE — Cân bằng, sự thật hiển hiện", "🌀 WHEEL OF FORTUNE — Vận mệnh xoay chuyển, cơ hội mới", "❤️ TWO OF CUPS — Kết nối sâu sắc, tình cảm viên mãn", "🗡️ ACE OF SWORDS — Sự thật sắc bén, khởi đầu trí tuệ", "🌿 TEMPERANCE — Kiên nhẫn, hài hòa, chữa lành"];
-  document.getElementById('drawCardBtn').addEventListener('click', () => {
-    let rand = Math.floor(Math.random() * msgs.length);
-    let div = document.getElementById('dailyResult');
-    div.style.display = 'block';
-    div.innerHTML = `<i class="fas fa-tarot"></i> <strong>${msgs[rand]}</strong><br><small>Thông điệp từ Hoàng: Hãy đón nhận bằng trái tim rộng mở.</small>`;
-  });
+  // Tarot 3 Cards Data
+  const tarotCards = [
+    { name: "THE STAR", meaning: "Hy vọng, cảm hứng mới, chữa lành" },
+    { name: "THE MOON", meaning: "Trực giác, bí ẩn, giấc mơ" },
+    { name: "THE SUN", meaning: "Niềm vui, thành công, năng lượng" },
+    { name: "JUSTICE", meaning: "Cân bằng, sự thật, quyết định" },
+    { name: "WHEEL", meaning: "Vận mệnh, thay đổi, cơ hội" },
+    { name: "TOWER", meaning: "Phá vỡ, thức tỉnh, đổ vỡ để xây mới" },
+    { name: "LOVERS", meaning: "Tình yêu, lựa chọn, hòa hợp" },
+    { name: "DEATH", meaning: "Chuyển hóa, kết thúc mới bắt đầu" }
+  ];
 
-  // Energy
-  let energySpan = document.getElementById('energyLevel');
-  document.getElementById('refreshEnergy').addEventListener('click', () => {
-    let val = Math.floor(Math.random() * 45) + 55;
-    energySpan.innerText = val + '%';
-  });
-
-  // Countdown
-  function getNextEvent() {
-    let d = new Date();
-    d.setDate(d.getDate() + ((5 - d.getDay() + 7) % 7 || 7));
-    d.setHours(20, 0, 0, 0);
-    return d;
+  let currentCards = [null, null, null];
+  const positions = ["Quá khứ", "Hiện tại", "Tương lai"];
+  
+  function revealCard(index) {
+    if(currentCards[index]) return;
+    const randomCard = { ...tarotCards[Math.floor(Math.random() * tarotCards.length)] };
+    currentCards[index] = randomCard;
+    const slot = document.getElementById(`card${index}`);
+    slot.classList.add('revealed');
+    slot.innerHTML = `<i class="fas fa-tarot"></i><div class="card-name"><strong>${randomCard.name}</strong></div><small>${positions[index]}</small><div style="font-size:0.7rem; margin-top:5px;">${randomCard.meaning.substring(0,25)}</div>`;
+    // play chime
+    document.getElementById('chimeSound').play().catch(e=>console.log);
+    // add vibration effect
+    slot.style.transform = 'scale(1.05)';
+    setTimeout(() => slot.style.transform = '', 200);
   }
-  function updateCD() {
-    let target = getNextEvent(), now = new Date(), diff = target - now;
-    if(diff <= 0) return;
-    document.getElementById('days').innerText = String(Math.floor(diff / 86400000)).padStart(2, '0');
-    document.getElementById('hours').innerText = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
-    document.getElementById('mins').innerText = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
-    document.getElementById('secs').innerText = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
-  }
-  setInterval(updateCD, 1000);
-  updateCD();
-
-  // Music
-  let playing = false;
-  let music = document.getElementById('bgMusic');
-  let musicText = document.getElementById('musicText');
-  document.getElementById('musicToggle').onclick = () => {
-    if(playing) {
-      music.pause();
-      musicText.innerText = 'Nhạc thiền Tarot';
-    } else {
-      music.play().catch(e => console.log('autoplay blocked'));
-      musicText.innerText = 'Tắt nhạc ✨';
+  
+  document.getElementById('card0').onclick = () => revealCard(0);
+  document.getElementById('card1').onclick = () => revealCard(1);
+  document.getElementById('card2').onclick = () => revealCard(2);
+  
+  document.getElementById('resetTarotBtn').onclick = () => {
+    currentCards = [null, null, null];
+    for(let i=0;i<3;i++) {
+      const slot = document.getElementById(`card${i}`);
+      slot.classList.remove('revealed');
+      slot.innerHTML = `<i class="fas fa-question"></i><div class="card-name">???</div>`;
     }
-    playing = !playing;
   };
+
+  // Crystal Ball
+  const crystalMessages = ["✨ Tâm trí bạn đang hướng về những điều tốt đẹp", "🔮 Hãy lắng nghe trực giác, nó sẽ dẫn lối", "🌙 Một cơ hội bất ngờ đang đến gần", "💎 Năng lượng tích cực đang bao quanh bạn", "🕯️ Hãy tha thứ cho chính mình hôm nay"];
+  document.getElementById('crystalBall').onclick = () => {
+    const msg = crystalMessages[Math.floor(Math.random() * crystalMessages.length)];
+    document.getElementById('crystalMessage').innerHTML = `<i class="fas fa-gem"></i> ${msg}`;
+    document.getElementById('chimeSound').play().catch(e=>console.log);
+  };
+
+  // Mood Tracker
+  const moodResponses = {
+    'bình yên': '🌸 Tâm hồn an nhiên, những lá bài hôm nay sẽ rất nhẹ nhàng với bạn.',
+    'tò mò': '🔍 Sự tò mò dẫn lối bạn đến những khám phá mới. Hãy thử trải bài 3 lá!',
+    'đầy năng lượng': '⚡ Năng lượng dồi dào, đây là lúc để hành động và biến ước mơ thành hiện thực.',
+    'cần chữa lành': '🍃 Hãy dành thời gian cho bản thân. Abysuss và Oracle sẽ đồng hành cùng bạn.'
+  };
+  document.querySelectorAll('.mood-btn').forEach(btn => {
+    btn.onclick = () => {
+      const mood = btn.dataset.mood;
+      document.getElementById('moodResponse').innerHTML = moodResponses[mood] || 'Cảm xúc đẹp, vũ trụ đang lắng nghe bạn.';
+      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('chimeSound').play().catch(e=>console.log);
+    };
+  });
+
+  // Random Tarot Story
+  const tarotStories = [
+    "🏛️ The Star: Một đêm nọ, bạn nhìn lên bầu trời và nhận ra rằng mọi khó khăn chỉ là những đám mây tạm thời. Ánh sáng hy vọng luôn ở đó.",
+    "🌙 The Moon: Có những điều không thể giải thích bằng lý trí. Hãy tin vào giấc mơ, chúng đang mách bảo bạn điều gì đó.",
+    "☀️ The Sun: Niềm vui sẽ ùa về như ánh bình minh. Hôm nay là ngày của sự rực rỡ và cười thật tươi.",
+    "⚖️ Justice: Mọi hành động đều có hệ quả. Hãy sống thật với lương tâm, vũ trụ sẽ công bằng.",
+    "🌀 Wheel of Fortune: Bánh xe luân chuyển, chu kỳ mới bắt đầu. Đừng sợ thay đổi, nó mang đến phép màu."
+  ];
+  document.getElementById('randomStoryBtn').onclick = () => {
+    const story = tarotStories[Math.floor(Math.random() * tarotStories.length)];
+    document.getElementById('storyResult').innerHTML = `<i class="fas fa-feather-alt"></i> ${story}<br><small style="color:#c9a87b;">— Hoàng kể —</small>`;
+    document.getElementById('chimeSound').play().catch(e=>console.log);
+  };
+
+  // Music with working source
+  let musicPlaying = false;
+  const bgMusic = document.getElementById('bgMusic');
+  const musicTextSpan = document.getElementById('musicText');
+  document.getElementById('musicToggle').onclick = () => {
+    if(musicPlaying) {
+      bgMusic.pause();
+      musicTextSpan.innerText = 'Nhạc nền Tarot';
+    } else {
+      bgMusic.volume = 0.4;
+      bgMusic.play().catch(e => console.log('autoplay blocked, user interaction needed'));
+      musicTextSpan.innerText = 'Tắt nhạc ✨';
+    }
+    musicPlaying = !musicPlaying;
+  };
+  
+  // Auto init mood
+  console.log('✨ Trang Tarot đã sẵn sàng — Hoàng reader & writer');
 </script>
 </body>
 </html>
